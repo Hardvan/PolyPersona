@@ -55,6 +55,22 @@ def get_config(temperature=0.9, top_k=32, top_p=1.0):
     )
 
 
+def preprocess(text):
+    """Preprocess the text to remove any unwanted characters that can cause issues.
+    Keep only alphanumeric characters, spaces, and punctuation.
+
+    Args
+    ----
+    - `text`: Text to be preprocessed.
+
+    Returns
+    -------
+    - `str`: Preprocessed text.
+    """
+
+    return ''.join(ch for ch in text if ch.isalnum() or ch.isspace() or ch in [',', '.', '!', '?', ':', ';', '-', '(', ')', '"', "'"])
+
+
 def handler(celebrity, say_what, model_parameters, target_language, audio_path):
     """
     1. Attach a pretext to the prompt (description of the website and task)
@@ -72,13 +88,14 @@ def handler(celebrity, say_what, model_parameters, target_language, audio_path):
     - `audio_path`: Path to save the audio file.
     """
 
-    pretext = "You are working on a celebrity mimicking website. You need to generate text that very closely resembles the style, thought process, and humor of a celebrity. The text should be funny, engaging, deep, and thought-provoking."
+    pretext = "You are working on a celebrity mimicking website. You need to generate text that very closely resembles the style, thought process, and humor of a celebrity. The text should be funny, engaging, deep, and thought-provoking. The response text should be plain text and keep it under 200 words."
 
     prompt = f"""{pretext}
 
 Celebrity: {celebrity}
 I want them to say: {say_what}
 """
+    print(f"Prompt: {prompt}")
 
     generation_config = get_config(
         temperature=model_parameters.get("temperature", 0.9),
@@ -87,43 +104,44 @@ I want them to say: {say_what}
     )
 
     response = get_response(prompt, generation_config)
+    response = preprocess(response)
 
-    translated_response = google_handlers.translate_message(
-        response, target_language)
+    translation = google_handlers.translate_message(response, target_language)
 
     audio_path = google_handlers.make_audio(
-        translated_response, target_language, audio_path)
+        translation, target_language, audio_path)
 
-    return response, audio_path
+    return translation, audio_path
 
 
 if __name__ == "__main__":
 
-    def test_handler():
+    celebrity = "Marcus Aurelius"
+    say_what = "Thoughts on the modern world & Gen Z"
+    model_parameters = {
+        "temperature": 0.9,
+        "top_k": 32,
+        "top_p": 1.0
+    }
+    target_language = "Marathi"
+    audio_path = "./static/audio/marcus_aurelius.mp3"
 
-        celebrity = "Marcus Aurelius"
-        say_what = "thoughts on the present day Gen-Z culture and the modern world."
+    response, audio_path = handler(
+        celebrity, say_what, model_parameters, target_language, audio_path)
+    print(f"Response: {response}")
+    print(f"Audio path: {audio_path}")
 
-        model_parameters = {"temperature": 0.9,
-                            "top_k": 32,
-                            "top_p": 1.0}
-        target_language = "Marathi"
-        audio_path = "./static/audio/marcus_aurelius.mp3"
-
-        response, audio_path = handler(
-            celebrity, say_what, model_parameters, target_language, audio_path)
-
-        # Save input details and output in a markdown file
-        with open("output.md", "w") as file:
-            file.write("# Trying Gemini\n\n")
-            file.write("## Input Details\n\n")
-            file.write(f"- Celebrity: {celebrity}\n")
-            file.write(f"- Say What: {say_what}\n")
-            file.write(f"- Model Parameters: {model_parameters}\n")
-            file.write(f"- Target Language: {target_language}\n")
-            file.write(f"- Audio Path: {audio_path}\n\n")
-            file.write("## Output\n\n")
-            file.write(f"Response: {response}\n")
-            file.write(f"Audio Path: {audio_path}\n")
-
-    test_handler()
+    # Save to markdown file
+    with open("response.md", "w", encoding="utf-8") as f:
+        f.write(f"# Trying gemini model\n\n")
+        f.write(f"## Input\n\n")
+        f.write(f"- **Celebrity**: {celebrity}\n")
+        f.write(f"- **Say what**: {say_what}\n")
+        f.write(f"- **Model parameters**: {model_parameters}\n")
+        f.write(f"- **Target language**: {target_language}\n")
+        f.write(f"- **Audio path**: {audio_path}\n\n")
+        f.write(f"## Response\n\n")
+        f.write(f"{response}\n\n")
+        f.write(f"## Audio path\n\n")
+        f.write(f"[Audio file]({audio_path})\n\n")
+    print("Saved to response.md")

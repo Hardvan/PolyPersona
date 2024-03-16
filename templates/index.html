@@ -24,7 +24,7 @@
 
     <!-- Input Form -->
     <div class="input-form-container">
-      <form action="/celeb" method="POST">
+      <form action="/celeb" method="POST" id="input-form">
         <!-- Name -->
         <label for="name">Name:</label>
         <input
@@ -66,7 +66,10 @@
       <p>{{ result.response }}</p>
       <h2>Response Audio:</h2>
       <audio controls autoplay>
-        <source src="{{ result.audio_path }}" type="audio/wav" />
+        <source
+          src="data:audio/mpeg;base64,{{ result.audio_base64 }}"
+          type="audio/mpeg"
+        />
         Your browser does not support the audio element.
       </audio>
     </div>
@@ -74,5 +77,13 @@
 
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script>
+      // If the user presses "Enter" key, submit the form
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          document.getElementById("input-form").submit();
+        }
+      });
+    </script>
   </body>
 </html>

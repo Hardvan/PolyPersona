@@ -86,6 +86,11 @@ def handler(celebrity, say_what, model_parameters, target_language, audio_path):
     - `model_parameters`: Dictionary containing the model parameters.
     - `target_language`: Language to translate the response to.
     - `audio_path`: Path to save the audio file.
+
+    Returns
+    -------
+    - `str`: Translated response text.
+    - `str`: Path to the audio file.
     """
 
     pretext = "You are working on a celebrity mimicking website. You need to generate text that very closely resembles the style, thought process, and humor of a celebrity. The text should be funny, engaging, deep, and thought-provoking. The response text should be plain text and keep it under 200 words."
@@ -106,8 +111,8 @@ I want them to say: {say_what}
     response = get_response(prompt, generation_config)
     response = preprocess(response)
 
+    # Get translation & audio
     translation = google_handlers.translate_message(response, target_language)
-
     audio_path = google_handlers.make_audio(
         translation, target_language, audio_path)
 

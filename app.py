@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify
 import google_handlers
 import gemini
 import base64
-import io
+import os
 
 
 app = Flask(__name__)
@@ -45,6 +45,9 @@ def celeb():
     with open(audio_path, "rb") as audio_file:
         audio_bytes = audio_file.read()
         audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+
+    # Delete the audio file since it's not needed anymore (we have the base64)
+    os.remove(audio_path)
 
     result = {
         "response": response_text,

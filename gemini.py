@@ -121,38 +121,42 @@ I want them to say: {say_what}
 
 if __name__ == "__main__":
 
-    celebrity = "Marcus Aurelius"
-    say_what = "Thoughts on the modern world & Gen Z"
-    model_parameters = {
-        "temperature": 0.9,
-        "top_k": 32,
-        "top_p": 1.0
-    }
-    target_languages = ["Marathi", "Hindi", "Japanese", "Gujarati"]
-    audio_paths = [
-        "./static/audio/marcus_aurelius_marathi.mp3",
-        "./static/audio/marcus_aurelius_hindi.mp3",
-        "./static/audio/marcus_aurelius_japanese.mp3",
-        "./static/audio/marcus_aurelius_gujarati.mp3"
-    ]
+    def test_handler():
 
-    for target_language, audio_path in zip(target_languages, audio_paths):
-        response, audio_path = handler(
-            celebrity, say_what, model_parameters, target_language, audio_path)
-        print(f"Response ({target_language}): {response}")
-        print(f"Audio path ({target_language}): {audio_path}")
+        celebrity = "Marcus Aurelius"
+        say_what = "Thoughts on the modern world & Gen Z"
+        model_parameters = {
+            "temperature": 0.9,
+            "top_k": 32,
+            "top_p": 1.0
+        }
+        target_languages = ["Marathi", "Hindi", "Japanese", "Gujarati"]
+        audio_paths = [
+            "./static/audio/marcus_aurelius_marathi.mp3",
+            "./static/audio/marcus_aurelius_hindi.mp3",
+            "./static/audio/marcus_aurelius_japanese.mp3",
+            "./static/audio/marcus_aurelius_gujarati.mp3"
+        ]
 
-        # Save to markdown file
-        with open(f"response_{target_language}.md", "w", encoding="utf-8") as f:
-            f.write(f"# Trying gemini model\n\n")
-            f.write(f"## Input\n\n")
-            f.write(f"- **Celebrity**: {celebrity}\n")
-            f.write(f"- **Say what**: {say_what}\n")
-            f.write(f"- **Model parameters**: {model_parameters}\n")
-            f.write(f"- **Target language**: {target_language}\n")
-            f.write(f"- **Audio path**: {audio_path}\n\n")
-            f.write(f"## Response\n\n")
-            f.write(f"{response}\n\n")
-            f.write(f"## Audio path\n\n")
-            f.write(f"[Audio file]({audio_path})\n\n")
-        print(f"Saved to response_{target_language}.md")
+        for target_language, audio_path in zip(target_languages, audio_paths):
+            response, audio_path = handler(
+                celebrity, say_what, model_parameters, target_language, audio_path)
+            print(f"Response ({target_language}): {response}")
+            print(f"Audio path ({target_language}): {audio_path}")
+
+            # Save to markdown file
+            with open(f"response_{target_language}.md", "w", encoding="utf-8") as f:
+                f.write(f"# Trying gemini model\n\n")
+                f.write(f"## Input\n\n")
+                f.write(f"- **Celebrity**: {celebrity}\n")
+                f.write(f"- **Say what**: {say_what}\n")
+                f.write(f"- **Model parameters**: {model_parameters}\n")
+                f.write(f"- **Target language**: {target_language}\n")
+                f.write(f"- **Audio path**: {audio_path}\n\n")
+                f.write(f"## Response\n\n")
+                f.write(f"{response}\n\n")
+                f.write(f"## Audio path\n\n")
+                f.write(f"[Audio file]({audio_path})\n\n")
+            print(f"Saved to response_{target_language}.md")
+
+    test_handler()

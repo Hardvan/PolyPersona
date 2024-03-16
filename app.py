@@ -22,10 +22,23 @@ def celeb():
     celebrity = request.form.get("name")
     say_what = request.form.get("say")
     target_language = request.form.get("language")
+    temperature = request.form.get("temperature")
+    top_k = request.form.get("top_k")
+    top_p = request.form.get("top_p")
     print(f"Input: {celebrity}, {say_what}, {target_language}")
+    print(f"Model parameters: {temperature}, {top_k}, {top_p}")
 
-    response_text, audio_path = gemini.handler(
-        celebrity, say_what, model_parameters={}, target_language=target_language, audio_path="./static/audio/response.mp3")
+    model_parameters = {
+        "temperature": float(temperature),
+        "top_k": int(top_k),
+        "top_p": float(top_p)
+    }
+
+    # Get the response
+    response_text, audio_path = gemini.handler(celebrity, say_what,
+                                               model_parameters=model_parameters,
+                                               target_language=target_language,
+                                               audio_path="./static/audio/response.mp3")
     print(f"Response: {response_text}, {audio_path}")
 
     # Convert the audio to base64

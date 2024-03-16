@@ -11,7 +11,7 @@ model = genai.GenerativeModel('gemini-pro')
 
 
 def get_response(prompt, generation_config=None):
-    """Get a response from the model for the given prompt.
+    """Get a response text from the model for the given prompt.
 
     Args
     ----
@@ -20,7 +20,7 @@ def get_response(prompt, generation_config=None):
 
     Returns
     -------
-    - `str`: Response from the model.
+    - `str`: Response text from the model.
     """
 
     response = model.generate_content(
@@ -93,8 +93,8 @@ def handler(celebrity, say_what, model_parameters, target_language, audio_path):
     - `str`: Path to the audio file.
     """
 
+    # Structure the prompt
     pretext = "You are working on a celebrity mimicking website. You need to generate text that very closely resembles the style, thought process, and humor of a celebrity. The text should be funny, engaging, deep, and thought-provoking. The response text should be plain text and keep it under 200 words."
-
     prompt = f"""{pretext}
 
 Celebrity: {celebrity}
@@ -102,12 +102,14 @@ I want them to say: {say_what}
 """
     print(f"Prompt: {prompt}")
 
+    # Generate config object
     generation_config = get_config(
         temperature=model_parameters.get("temperature", 0.9),
         top_k=model_parameters.get("top_k", 32),
         top_p=model_parameters.get("top_p", 1.0)
     )
 
+    # Get response from gemini model
     response = get_response(prompt, generation_config)
     response = preprocess(response)
 

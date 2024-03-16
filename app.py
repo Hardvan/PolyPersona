@@ -12,13 +12,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-
     return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP)
 
 
 @app.route('/celeb', methods=["POST"])
 def celeb():
 
+    # Fetch form data
     celebrity = request.form.get("name")
     say_what = request.form.get("say")
     target_language = request.form.get("language")
@@ -26,7 +26,8 @@ def celeb():
     top_k = request.form.get("top_k")
     top_p = request.form.get("top_p")
     print(f"Input: {celebrity}, {say_what}, {target_language}")
-    print(f"Model parameters: {temperature}, {top_k}, {top_p}")
+    print(
+        f"Model parameters (temperature, top_k, top_p): {temperature}, {top_k}, {top_p}")
 
     model_parameters = {
         "temperature": float(temperature),
@@ -45,9 +46,7 @@ def celeb():
     with open(audio_path, "rb") as audio_file:
         audio_bytes = audio_file.read()
         audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
-
-    # Delete the audio file since it's not needed anymore (we have the base64)
-    os.remove(audio_path)
+    os.remove(audio_path)  # audio file not needed anymore (we have base64)
 
     result = {
         "response": response_text,

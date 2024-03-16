@@ -19,7 +19,7 @@ The PolyPersona project is a web application designed for generating text respon
 - **Python**: Python is the primary programming language used for backend development, including text generation and interaction with external APIs.
 - **dotenv**: The dotenv library is used for loading environment variables from a `.env` file, providing configuration options for the application.
 
-## How to Contribute
+## Installation
 
 1. Clone the repo
 

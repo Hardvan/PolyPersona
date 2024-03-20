@@ -69,19 +69,20 @@
           - Range: 0.0 to 1.0
           - Default: 1.0
         -->
-
         <h2>Model Parameters:</h2>
 
         <label for="temperature">Temperature:</label>
         <input
-          type="number"
+          type="range"
           id="temperature"
           name="temperature"
           min="0.0"
           max="1.0"
           step="0.1"
           value="0.9"
+          oninput="showTemperatureValue(this.value)"
         />
+        <span id="temperatureValue">0.9</span>
         <p class="description">
           Randomness of the output. High -> diverse & creative, Low -> focused &
           accurate.
@@ -89,13 +90,15 @@
 
         <label for="top_k">Top k:</label>
         <input
-          type="number"
+          type="range"
           id="top_k"
           name="top_k"
           min="1"
           max="40"
           value="32"
+          oninput="showTopKValue(this.value)"
         />
+        <span id="top_kValue">32</span>
         <p class="description">
           Top k tokens to consider at each step. Higher -> more diverse, Lower
           -> more focused.
@@ -103,14 +106,16 @@
 
         <label for="top_p">Top p:</label>
         <input
-          type="number"
+          type="range"
           id="top_p"
           name="top_p"
           min="0.0"
           max="1.0"
           step="0.1"
           value="1.0"
+          oninput="showTopPValue(this.value)"
         />
+        <span id="top_pValue">1.0</span>
         <p class="description">
           Nucleus sampling. Higher -> more diverse, Lower -> more focused.
         </p>
@@ -184,6 +189,21 @@
       const result = document.getElementById("result");
       if (result) {
         result.scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Show the value of the temperature range
+      function showTemperatureValue(val) {
+        document.getElementById("temperatureValue").textContent = val;
+      }
+
+      // Show the value of the top k range
+      function showTopKValue(val) {
+        document.getElementById("top_kValue").textContent = val;
+      }
+
+      // Show the value of the top p range
+      function showTopPValue(val) {
+        document.getElementById("top_pValue").textContent = val;
       }
     </script>
   </body>

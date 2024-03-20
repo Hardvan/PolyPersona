@@ -112,6 +112,13 @@ body {
 
 .result-container audio {
   margin-top: 1rem;
+  width: 80%;
+  border-radius: 5px;
+  background-color: #f0f7f4;
+  padding: 10px;
+  border: 1px solid #0f4c5c;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 /* End of Result Section */
 

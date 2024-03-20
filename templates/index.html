@@ -122,7 +122,7 @@
     <!-- End of Input Form -->
 
     <!-- Loading Section -->
-    <div class="loading-container">
+    <div class="loading-container" id="loading" style="display: none">
       <div class="typewriter">
         <div class="slide"><i></i></div>
         <div class="paper"></div>
@@ -133,7 +133,7 @@
 
     <!-- Result Section -->
     {% if result %}
-    <div class="result-container">
+    <div class="result-container" id="result">
       <h2>Response Text:</h2>
       <p>{{ result.response }}</p>
       <h2>Response Audio:</h2>
@@ -162,11 +162,29 @@
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
     <script>
       // If the user presses "Enter" key, submit the form
+      const form = document.getElementById("input-form");
       document.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
-          document.getElementById("input-form").submit();
+          form.submit();
         }
       });
+
+      // Loading Section
+      const loading = document.getElementById("loading");
+      // Hide the loading section when the page is loaded
+      window.onload = () => {
+        loading.style.display = "none";
+      };
+      // Show the loading section when the form is submitted
+      form.addEventListener("submit", () => {
+        loading.style.display = "flex";
+      });
+
+      // If the result section is loaded, scroll to the result section
+      const result = document.getElementById("result");
+      if (result) {
+        result.scrollIntoView({ behavior: "smooth" });
+      }
     </script>
   </body>
 </html>

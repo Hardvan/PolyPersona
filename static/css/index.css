@@ -13,11 +13,16 @@ body {
   display: none;
 }
 
+.greek-theme {
+  background-color: #f0f7f4;
+}
+
 .title {
   font-size: 3rem;
   text-align: center;
 }
 
+/* Input Form */
 .input-form-container {
   display: flex;
   justify-content: center;
@@ -31,8 +36,46 @@ body {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  background-color: #eff6f3;
+  padding: 20px;
+  border-radius: 10px;
 }
 
+.input-form-container form label {
+  color: #0f4c5c;
+  font-weight: bold;
+}
+
+.input-form-container form input[type="text"],
+.input-form-container form textarea,
+.input-form-container form select,
+.input-form-container form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #0f4c5c;
+  border-radius: 5px;
+  background-color: #f0f7f4;
+}
+
+.input-form-container form input[type="submit"] {
+  width: auto;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0f4c5c;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input-form-container form input[type="submit"]:hover {
+  background-color: #0c3e4a;
+}
+/* End of Input Form */
+
+/* Result Section */
 .result-container {
   display: flex;
   flex-direction: column;
@@ -41,26 +84,37 @@ body {
   margin-top: 2rem;
   margin-left: 2rem;
   margin-right: 2rem;
+  background-color: #eff6f3;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
 .result-container h2 {
   font-size: 2rem;
+  color: #0f4c5c;
+  font-weight: bold;
 }
 
 .result-container p {
   font-size: 1.5rem;
   margin-top: 1rem;
+  color: #0f4c5c;
 }
 
 .result-container audio {
   margin-top: 1rem;
 }
+/* End of Result Section */
 
+/* Footer */
 .footer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  text-align: center;
+  color: #0f4c5c;
 }
 
 .footer p {
@@ -70,7 +124,9 @@ body {
 .footer a {
   text-decoration: none;
   color: #000;
+  color: #0f4c5c;
 }
+/* End of Footer */
 
 /* Loading Section */
 .loading-container {

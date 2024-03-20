@@ -24,6 +24,24 @@
     <h1 class="title">PolyPersona</h1>
     <!-- End of Title -->
 
+    <!-- Description -->
+    <div class="description">
+      <p>
+        PolyPersona is a web application that generates text responses mimicking
+        the style of various celebrities using natural language processing (NLP)
+        models from the Gemini API. Users input a celebrity's name and desired
+        message, and the system generates responses resembling the chosen
+        personality's speech patterns. The application offers multi-language
+        support, customizable model parameters, and audio generation from the
+        translated text. Implemented with Flask, HTML/CSS/JavaScript, and
+        Python, PolyPersona provides a user-friendly interface for easy
+        interaction. Install the application by cloning the repository, setting
+        up dependencies, and running the server locally. Try it out to
+        experience personalized celebrity-style responses!
+      </p>
+    </div>
+    <!-- End of Description -->
+
     <!-- Input Form -->
     <div class="input-form-container">
       <form action="/celeb" method="POST" id="input-form">
@@ -84,9 +102,10 @@
           oninput="showTemperatureValue(this.value)"
         />
         <span id="temperatureValue">0.9</span>
-        <p class="description">
-          Randomness of the output. High -> diverse & creative, Low -> focused &
-          accurate.
+        <p class="parameter-description">
+          The `temperature` parameter controls the randomness of the output. A
+          high value leads to more diverse and creative results, while a low
+          value produces more focused and accurate output.
         </p>
 
         <label for="top_k">Top k:</label>
@@ -101,9 +120,9 @@
           oninput="showTopKValue(this.value)"
         />
         <span id="top_kValue">32</span>
-        <p class="description">
-          Top k tokens to consider at each step. Higher -> more diverse, Lower
-          -> more focused.
+        <p class="parameter-description">
+          Top k tokens to consider at each step. A higher value leads to more
+          diverse output, while a lower value results in more focused output.
         </p>
 
         <label for="top_p">Top p:</label>
@@ -119,8 +138,13 @@
           oninput="showTopPValue(this.value)"
         />
         <span id="top_pValue">1.0</span>
-        <p class="description">
-          Nucleus sampling. Higher -> more diverse, Lower -> more focused.
+        <p class="parameter-description">
+          Nucleus sampling is a technique used in generating text. It refers to
+          the process of selecting from a subset of the most likely tokens at
+          each step. A higher value for the `top_p` parameter leads to more
+          diverse output, allowing for a wider range of possibilities. On the
+          other hand, a lower value for `top_p` results in more focused output,
+          with a narrower selection of tokens.
         </p>
 
         <!-- Submit Button -->

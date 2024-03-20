@@ -30,6 +30,22 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+/* Description */
+.description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  margin: 0 auto;
+  background-color: #eff6f3;
+  text-align: justify;
+}
+
+.description p {
+  font-size: 1.5rem;
+  color: #0f4c5c;
+}
+
 /* Input Form */
 .input-form-container {
   display: flex;
@@ -58,7 +74,7 @@ body {
 .input-form-container form textarea,
 .input-form-container form select,
 .input-form-container form input[type="number"] {
-  width: 100%;
+  width: 60%;
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #0f4c5c;
@@ -81,6 +97,15 @@ body {
 .input-form-container form input[type="submit"]:hover {
   background-color: #0c3e4a;
 }
+
+.parameter-description {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #0f4c5c;
+  width: 60%;
+  text-align: center;
+}
+
 /* End of Input Form */
 
 /* Result Section */

@@ -20,6 +20,7 @@ body {
 .title {
   font-size: 3rem;
   text-align: center;
+  margin-top: 2rem;
 }
 
 /* Input Form */
@@ -448,23 +449,8 @@ input[type="range"].win10-thumb {
   --clip-edges: 0.0125em;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    background-color: #000;
-  }
-
-  html::before {
-    background: radial-gradient(circle at center, #101112, #000);
-  }
-
-  input[type="range"] {
-    color: #f07167;
-    --track-color: rgba(255, 255, 255, 0.1);
-  }
-
-  input[type="range"].win10-thumb {
-    color: #3a86ff;
-  }
+#temperature {
+  color: #3a86ff;
 }
 
 /* === range commons === */

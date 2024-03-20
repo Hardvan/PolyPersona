@@ -20,7 +20,9 @@
   </head>
 
   <body>
+    <!-- Title -->
     <h1 class="title">Hello, World!</h1>
+    <!-- End of Title -->
 
     <!-- Input Form -->
     <div class="input-form-container">
@@ -117,6 +119,17 @@
         <input type="submit" value="Submit" />
       </form>
     </div>
+    <!-- End of Input Form -->
+
+    <!-- Loading Section -->
+    <div class="loading-container">
+      <div class="typewriter">
+        <div class="slide"><i></i></div>
+        <div class="paper"></div>
+        <div class="keyboard"></div>
+      </div>
+    </div>
+    <!-- End of Loading Section -->
 
     <!-- Result Section -->
     {% if result %}
@@ -133,6 +146,7 @@
       </audio>
     </div>
     {% endif %}
+    <!-- End of Result Section -->
 
     <!-- Footer -->
     <footer class="footer">

@@ -55,3 +55,19 @@ body {
 .result-container audio {
   margin-top: 1rem;
 }
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.footer p {
+  font-size: 1.2rem;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #000;
+}

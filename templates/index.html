@@ -110,11 +110,11 @@
             oninput="showTemperatureValue(this.value)"
           />
           <span id="temperatureValue">0.9</span>
-          <p class="parameter-description" id="description-temperature">
+          <div class="info-bubble" id="info-temperature" style="display: none">
             Controls the randomness of the output. <br />Higher value = more
             diverse and creative results<br />Low value = more focused and
             accurate output.
-          </p>
+          </div>
           <label for="top_k"
             >Top k
             <span
@@ -135,10 +135,10 @@
             oninput="showTopKValue(this.value)"
           />
           <span id="top_kValue">32</span>
-          <p class="parameter-description" id="description-topK">
+          <div class="info-bubble" id="info-topK" style="display: none">
             Top k tokens to consider at each step. <br />Higher value = more
             diverse output <br />Lower value = more focused output.
-          </p>
+          </div>
           <label for="top_p"
             >Top p
             <span
@@ -160,14 +160,11 @@
             oninput="showTopPValue(this.value)"
           />
           <span id="top_pValue">1.0</span>
-          <p class="parameter-description" id="description-topP">
-            Nucleus sampling is a technique used in generating text. It refers
-            to the process of selecting from a subset of the most likely tokens
-            at each step. <br />Higher 'Top p' parameter = more diverse output,
-            allowing for a wider range of possibilities. <br />Lower 'Top p'
-            parameter = more focused output, with a narrower selection of
-            tokens.
-          </p>
+          <div class="info-bubble" id="info-topP" style="display: none">
+            Nucleus sampling selects likely tokens. <br />
+            Higher 'Top p' yields diverse output, wider possibilities <br />
+            Lower 'Top p' results in focused output, narrower token selection.
+          </div>
           <!-- Submit Button -->
           <input type="submit" value="Submit" />
         </form>
@@ -220,6 +217,7 @@
       const form = document.getElementById("input-form");
       document.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
+          loading.style.display = "flex"; // Show the loading section when the form is submitted
           form.submit();
         }
       });
@@ -258,12 +256,12 @@
 
       // Show information on hover:
       function showInfo(val) {
-        document.querySelector("#description-" + val).style.display = "block";
+        document.querySelector("#info-" + val).style.display = "block";
       }
 
       // Hide information on hover:
       function hideInfo(val) {
-        document.querySelector("#description-" + val).style.display = "none";
+        document.querySelector("#info-" + val).style.display = "none";
       }
     </script>
   </body>

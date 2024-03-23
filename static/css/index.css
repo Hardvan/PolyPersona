@@ -665,7 +665,7 @@ input[type="range"]:disabled::-moz-range-thumb {
 
 /* Info bubble */
 .info-bubble {
-  position: relative; /* Change to relative positioning */
+  position: relative;
   background-color: #f9f9f9;
   color: #333;
   border: 1px solid #ccc;
@@ -674,14 +674,16 @@ input[type="range"]:disabled::-moz-range-thumb {
   z-index: 1;
   max-width: 200px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
 }
 
+/* Adjust positioning for visual alignment */
 .info-bubble::after {
   content: "";
   position: absolute;
-  top: -10px; /* Adjust to align with the top edge of the input */
-  left: 100%; /* Position it to the right of the input */
-  margin-left: 5px; /* Adjust as needed for spacing */
+  top: -12px; /* Slightly adjusted for better alignment */
+  left: 100%;
+  margin-left: 5px; /* Adjust as needed */
   border-width: 5px;
   border-style: solid;
   border-color: #f9f9f9 transparent transparent transparent;

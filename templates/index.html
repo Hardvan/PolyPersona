@@ -98,6 +98,11 @@
               >ⓘ</span
             ></label
           >
+          <div class="info-bubble" id="info-temperature" style="display: none">
+            Controls the randomness of the output. <br />Higher value = more
+            diverse and creative results<br />Low value = more focused and
+            accurate output.
+          </div>
           <input
             type="range"
             class="win10-thumb"
@@ -110,11 +115,6 @@
             oninput="showTemperatureValue(this.value)"
           />
           <span id="temperatureValue">0.9</span>
-          <div class="info-bubble" id="info-temperature" style="display: none">
-            Controls the randomness of the output. <br />Higher value = more
-            diverse and creative results<br />Low value = more focused and
-            accurate output.
-          </div>
           <label for="top_k"
             >Top k
             <span
@@ -124,6 +124,10 @@
               >ⓘ</span
             ></label
           >
+          <div class="info-bubble" id="info-topK" style="display: none">
+            Top k tokens to consider at each step. <br />Higher value = more
+            diverse output <br />Lower value = more focused output.
+          </div>
           <input
             type="range"
             class="win10-thumb"
@@ -135,10 +139,6 @@
             oninput="showTopKValue(this.value)"
           />
           <span id="top_kValue">32</span>
-          <div class="info-bubble" id="info-topK" style="display: none">
-            Top k tokens to consider at each step. <br />Higher value = more
-            diverse output <br />Lower value = more focused output.
-          </div>
           <label for="top_p"
             >Top p
             <span
@@ -148,6 +148,11 @@
               >ⓘ</span
             ></label
           >
+          <div class="info-bubble" id="info-topP" style="display: none">
+            Nucleus sampling selects likely tokens. <br />
+            Higher 'Top p' yields diverse output, wider possibilities <br />
+            Lower 'Top p' results in focused output, narrower token selection.
+          </div>
           <input
             type="range"
             class="win10-thumb"
@@ -160,11 +165,6 @@
             oninput="showTopPValue(this.value)"
           />
           <span id="top_pValue">1.0</span>
-          <div class="info-bubble" id="info-topP" style="display: none">
-            Nucleus sampling selects likely tokens. <br />
-            Higher 'Top p' yields diverse output, wider possibilities <br />
-            Lower 'Top p' results in focused output, narrower token selection.
-          </div>
           <!-- Submit Button -->
           <input type="submit" value="Submit" />
         </form>

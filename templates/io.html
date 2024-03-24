@@ -1,0 +1,150 @@
+<!-- Input & Output -->
+<div class="input-output">
+  <div class="input-form-container">
+    <form action="/celeb" method="POST" id="input-form">
+      <h2>Input Form:</h2>
+      <!-- Name -->
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Celeb's name..."
+        required
+      />
+      <!-- What to say -->
+      <label for="say">What to say:</label>
+      <textarea
+        id="say"
+        name="say"
+        required
+        rows="4"
+        cols="50"
+        placeholder="What to say..."
+      ></textarea>
+      <!-- Language Dropdown menu, given from LANG_MAP.keys() -->
+      <label for="language">Language:</label>
+      <select id="language" name="language">
+        {% for lang in LANG_MAP.keys() %}
+        <option value="{{ lang }}">{{ lang }}</option>
+        {% endfor %}
+      </select>
+
+      <!-- Model Parameters
+        - `temperature`: Randomness of the output. High -> diverse & creative, Low -> focused & accurate.
+          - Range: 0.0 to 1.0
+          - Default: 0.9
+        - `top_k`: Top k tokens to consider at each step. Higher -> more diverse, Lower -> more focused.
+          - Range: 1 to 40
+          - Default: 32
+        - `top_p`: Nucleus sampling. Higher -> more diverse, Lower -> more focused.
+          - Range: 0.0 to 1.0
+          - Default: 1.0
+        -->
+      <h2>Model Parameters:</h2>
+      <!-- Temperature -->
+      <label for="temperature"
+        >Temperature
+        <span
+          class="temp-info"
+          onmouseover="showInfo('temperature')"
+          onmouseout="hideInfo('temperature')"
+          >ⓘ</span
+        ></label
+      >
+      <div class="info-bubble" id="info-temperature" style="display: none">
+        Controls the randomness of the output. <br />Higher value = more diverse
+        and creative results<br />Low value = more focused and accurate output.
+      </div>
+      <input
+        type="range"
+        class="win10-thumb"
+        id="temperature"
+        name="temperature"
+        min="0.0"
+        max="1.0"
+        step="0.1"
+        value="0.9"
+        oninput="showTemperatureValue(this.value)"
+      />
+      <span id="temperatureValue">0.9</span>
+      <!-- Top k -->
+      <label for="top_k"
+        >Top k
+        <span
+          class="topK-info"
+          onmouseover="showInfo('topK')"
+          onmouseout="hideInfo('topK')"
+          >ⓘ</span
+        ></label
+      >
+      <div class="info-bubble" id="info-topK" style="display: none">
+        Top k tokens to consider at each step. <br />Higher value = more diverse
+        output <br />Lower value = more focused output.
+      </div>
+      <input
+        type="range"
+        class="win10-thumb"
+        id="top_k"
+        name="top_k"
+        min="1"
+        max="40"
+        value="32"
+        oninput="showTopKValue(this.value)"
+      />
+      <span id="top_kValue">32</span>
+      <!-- Top p -->
+      <label for="top_p"
+        >Top p
+        <span
+          class="topP-info"
+          onmouseover="showInfo('topP')"
+          onmouseout="hideInfo('topP')"
+          >ⓘ</span
+        ></label
+      >
+      <div class="info-bubble" id="info-topP" style="display: none">
+        Nucleus sampling selects likely tokens. <br />
+        Higher 'Top p' yields diverse output, wider possibilities <br />
+        Lower 'Top p' results in focused output, narrower token selection.
+      </div>
+      <input
+        type="range"
+        class="win10-thumb"
+        id="top_p"
+        name="top_p"
+        min="0.0"
+        max="1.0"
+        step="0.1"
+        value="1.0"
+        oninput="showTopPValue(this.value)"
+      />
+      <span id="top_pValue">1.0</span>
+      <!-- Submit Button -->
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+  <!-- End of Input Form -->
+  <div class="output">
+    <!-- Loading Section -->
+    {% include "loading.html" %}
+    <!-- End of Loading Section -->
+    <!-- Result Section -->
+    {% if result %}
+    <div class="result-container" id="result">
+      <h2>Response Text:</h2>
+      <p>{{ result.response }}</p>
+      <h2>Response Audio:</h2>
+      <audio controls autoplay>
+        <source
+          src="data:audio/mpeg;base64,{{ result.audio_base64 }}"
+          type="audio/mpeg"
+        />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    {% endif %}
+  </div>
+  <!-- End of Result Section -->
+</div>
+<!-- End of Input & Output -->

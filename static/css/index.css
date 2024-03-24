@@ -132,6 +132,7 @@ body {
   font-size: 1.5rem;
   margin-top: 1rem;
   color: #0f4c5c;
+  text-align: justify;
 }
 
 .result-container audio {

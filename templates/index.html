@@ -50,8 +50,8 @@
       const form = document.getElementById("input-form");
       document.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
-          loading.style.display = "flex"; // Show the loading section when the form is submitted
-          form.submit();
+          showLoadingAnimation(); // Trigger loading animation
+          form.submit(); // Submit the form
         }
       });
 
@@ -63,8 +63,41 @@
       };
       // Show the loading section when the form is submitted
       form.addEventListener("submit", () => {
-        loading.style.display = "flex";
+        showLoadingAnimation(); // Trigger loading animation
       });
+      // Function to display loading section and animate loading text
+      function showLoadingAnimation() {
+        const loading = document.getElementById("loading");
+        loading.style.display = "flex"; // Show the loading section
+        const loadingText = document.getElementById("loading-text");
+        const text = loadingText.textContent; // Generating response
+        loadingText.textContent = ""; // Clear the text content
+
+        // Animate the loading text
+        let index = 0;
+        const interval = setInterval(() => {
+          if (index < text.length) {
+            loadingText.textContent += text.charAt(index);
+            index++;
+          } else {
+            clearInterval(interval);
+          }
+        }, 100); // 100ms interval
+
+        // Animate "", ".", "..", "..."
+        // Only animate this after the initial text is displayed, i.e., wait for the initial text to be displayed
+        const dots = ["", ".", "..", "..."];
+        setTimeout(() => {
+          let i = 0;
+          const interval = setInterval(() => {
+            loadingText.textContent = text + dots[i];
+            i = (i + 1) % dots.length;
+          }, 200); // 200ms interval
+        }, text.length * 100); // Wait for the initial text to be displayed
+
+        // Scroll to the loading section
+        loading.scrollIntoView({ behavior: "smooth" });
+      }
 
       // If the result section is loaded, scroll to the result section
       const result = document.getElementById("result");

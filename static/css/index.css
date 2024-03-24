@@ -48,6 +48,12 @@ body {
   color: #0f4c5c;
 }
 
+.gemini-api {
+  background: linear-gradient(to right, blue, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Input-output fields */
 .input-output {
   display: grid;

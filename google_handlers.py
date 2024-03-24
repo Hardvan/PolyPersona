@@ -4,6 +4,7 @@ import os
 
 
 # ? Language mapping
+# Available languages
 LANG_MAP = {"English": "en",
             "Hindi": "hi",
             "Marathi": "mr",
@@ -50,7 +51,7 @@ def translate_message(text, lang):
 
 
 # Dictionary to cache audio files
-AUDIO_CACHE = {} # { (text, lang): audio_path }
+AUDIO_CACHE = {}  # { (text, lang): audio_path }
 
 
 def make_audio(text, lang, audio_path=None, regen=False):

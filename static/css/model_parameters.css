@@ -195,9 +195,8 @@ input[type="range"]:disabled::-moz-range-thumb {
   border-radius: 5px;
   padding: 10px;
   z-index: 1;
-  max-width: 200px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /* Adjust positioning for visual alignment */
@@ -210,4 +209,28 @@ input[type="range"]:disabled::-moz-range-thumb {
   border-width: 5px;
   border-style: solid;
   border-color: #f9f9f9 transparent transparent transparent;
+}
+
+#info-temperature {
+  position: absolute;
+  top: 22.5rem;
+  left: 22.2rem;
+  width: 10rem;
+  margin-bottom: 0rem;
+}
+
+/* Adjust the positioning of the topK info-bubble */
+#info-topK {
+  position: absolute;
+  top: 34rem;
+  left: 20.4rem;
+}
+
+/* Adjust the positioning of the topP info-bubble */
+#info-topP {
+  position: absolute;
+  top: 44.1rem;
+  left: 20.4rem;
+  width: 20rem;
+  height: 6rem;
 }

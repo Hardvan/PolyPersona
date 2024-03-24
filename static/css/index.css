@@ -68,6 +68,10 @@ body {
 }
 
 /* Input Form */
+
+form {
+  position: relative;
+}
 .input-form-container {
   display: flex;
   justify-content: center;

@@ -1,0 +1,25 @@
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  text-align: center;
+  color: #0f4c5c;
+}
+
+.footer p {
+  font-size: 1.2rem;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #000;
+  color: #0f4c5c;
+  transition: 0.3s ease-in-out;
+}
+
+.footer a:hover {
+  color: #ef233c;
+}
+/* End of Footer */

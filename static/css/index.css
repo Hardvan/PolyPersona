@@ -302,8 +302,8 @@ form {
   }
 
   .input-output {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
   }
   #input-form::after {
     content: "";

@@ -56,6 +56,9 @@ def celeb():
         "celeb": celebrity,
         "say_what": say_what,
         "target_language": target_language,
+        "temperature": model_parameters["temperature"],
+        "top_k": model_parameters["top_k"],
+        "top_p": model_parameters["top_p"],
         "response": response_text,
         "audio_base64": audio_base64
     }

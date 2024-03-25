@@ -82,6 +82,12 @@
   font-size: 1.75rem;
   margin: 0;
 }
+.slider__info p {
+  color: #fff;
+  font-family: system-ui;
+  font-size: 0.75rem;
+  margin: 0.5rem 0 0;
+}
 
 .slider__nav {
   margin: 1rem 0 4rem;

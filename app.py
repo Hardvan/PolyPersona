@@ -35,6 +35,7 @@ def celeb():
         "top_p": float(top_p)
     }
 
+    # Check if all fields are filled
     if not celebrity or not say_what:
         return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP, error="Please fill in all the fields.")
 

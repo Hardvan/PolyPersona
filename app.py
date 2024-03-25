@@ -35,6 +35,9 @@ def celeb():
         "top_p": float(top_p)
     }
 
+    if not celebrity or not say_what:
+        return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP, error="Please fill in all the fields.")
+
     # Get the response
     response_text, audio_path = gemini.handler(celebrity, say_what,
                                                model_parameters=model_parameters,

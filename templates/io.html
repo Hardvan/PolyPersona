@@ -144,7 +144,15 @@
       </audio>
     </div>
     {% endif %}
+    <!-- End of Result Section -->
+    <!-- Error Section -->
+    {% if error %}
+    <div class="error-container" id="error">
+      <h2>Error</h2>
+      <p>{{ error }}</p>
+    </div>
+    {% endif %}
+    <!-- End of Error Section -->
   </div>
-  <!-- End of Result Section -->
 </div>
 <!-- End of Input & Output -->

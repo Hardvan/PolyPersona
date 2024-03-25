@@ -60,7 +60,7 @@ body {
 /* Input-output fields */
 .input-output {
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: minmax(250px, 3fr) minmax(250px, 2fr);
   width: 81%;
   margin: auto;
   max-width: 120rem;
@@ -75,6 +75,7 @@ form {
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  width: 90%;
 }
 
 .input-form-container form {
@@ -129,7 +130,7 @@ form {
   background: linear-gradient(to bottom right, blue, red);
   filter: blur(3em);
   z-index: -1;
-  width: 33rem;
+  width: 23rem;
   height: 60rem;
   margin-top: -59rem;
 }
@@ -149,7 +150,7 @@ form {
   padding: 20px;
   border-radius: 10px;
   margin-top: 20px;
-  width: 90%;
+  min-width: 20rem;
 }
 
 .result-container h2 {
@@ -207,9 +208,9 @@ form {
 }
 
 /* Responsive */
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .title {
-    font-size: 5rem;
+    font-size: 3rem;
   }
 
   .description {
@@ -223,5 +224,16 @@ form {
   .input-output {
     display: flex;
     flex-direction: column;
+  }
+  #input-form::after {
+    content: "";
+    position: relative;
+    inset: 0rem;
+    background: linear-gradient(to bottom right, blue, red);
+    filter: blur(3em);
+    z-index: -1;
+    width: 23rem;
+    height: 60rem;
+    margin-top: -59rem;
   }
 }

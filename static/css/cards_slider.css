@@ -58,6 +58,11 @@
   }
 }
 
+.slider_a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .slider__image {
   display: block;
   width: 100%;

@@ -5,48 +5,68 @@
     x-on:scroll.debounce="$refs.slider.scrollLeft == 0 ? start = true : start = false; Math.abs(($refs.slider.scrollWidth - $refs.slider.offsetWidth) - $refs.slider.scrollLeft) < 5 ? end = true : end = false;"
   >
     <div class="slider__item">
-      <img
-        class="slider__image"
-        src="./static/images/cards/marcus_aurelius.png"
-        alt="Image"
-      />
-      <div class="slider__info">
-        <h2>Marcus Aurelius</h2>
-        <p>Thoughts on Social Media & Gen-Z</p>
-      </div>
+      <a
+        onclick="submitSampleCeleb('Marcus Aurelius - Thoughts on Social Media & Gen-Z')"
+        class="slider_a"
+      >
+        <img
+          class="slider__image"
+          src="./static/images/cards/marcus_aurelius.png"
+          alt="Image"
+        />
+        <div class="slider__info">
+          <h2>Marcus Aurelius</h2>
+          <p>Thoughts on Social Media & Gen-Z</p>
+        </div>
+      </a>
     </div>
     <div class="slider__item">
-      <img
-        class="slider__image"
-        src="./static/images/cards/buddha.jpg"
-        alt="Image"
-      />
-      <div class="slider__info">
-        <h2>Buddha</h2>
-        <p>Entrepreneurship & Correlation with Mental Health</p>
-      </div>
+      <a
+        onclick="submitSampleCeleb('Buddha - Entrepreneurship & Correlation with Mental Health')"
+        class="slider_a"
+      >
+        <img
+          class="slider__image"
+          src="./static/images/cards/buddha.jpg"
+          alt="Image"
+        />
+        <div class="slider__info">
+          <h2>Buddha</h2>
+          <p>Entrepreneurship & Correlation with Mental Health</p>
+        </div>
+      </a>
     </div>
     <div class="slider__item">
-      <img
-        class="slider__image"
-        src="./static/images/cards/einstein.jpg"
-        alt="Image"
-      />
-      <div class="slider__info">
-        <h2>Albert Einstein</h2>
-        <p>Existentialism in the Digital Age</p>
-      </div>
+      <a
+        onclick="submitSampleCeleb('Albert Einstein - Existentialism in the Digital Age')"
+        class="slider_a"
+      >
+        <img
+          class="slider__image"
+          src="./static/images/cards/einstein.jpg"
+          alt="Image"
+        />
+        <div class="slider__info">
+          <h2>Albert Einstein</h2>
+          <p>Existentialism in the Digital Age</p>
+        </div>
+      </a>
     </div>
     <div class="slider__item">
-      <img
-        class="slider__image"
-        src="./static/images/cards/chanakya.jpg"
-        alt="Image"
-      />
-      <div class="slider__info">
-        <h2>Chanakya</h2>
-        <p>48 Laws of Power & his interpretation of it</p>
-      </div>
+      <a
+        onclick="submitSampleCeleb('Chanakya - 48 Laws of Power & his interpretation of it')"
+        class="slider_a"
+      >
+        <img
+          class="slider__image"
+          src="./static/images/cards/chanakya.jpg"
+          alt="Image"
+        />
+        <div class="slider__info">
+          <h2>Chanakya</h2>
+          <p>48 Laws of Power & his interpretation of it</p>
+        </div>
+      </a>
     </div>
   </div>
 </div>

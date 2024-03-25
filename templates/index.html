@@ -80,6 +80,9 @@
         const text = loadingText.textContent; // Generating response
         loadingText.textContent = ""; // Clear the text content
 
+        // Scroll to the loading section
+        loading.scrollIntoView({ behavior: "smooth" });
+
         // Animate the loading text
         let index = 0;
         const interval = setInterval(() => {
@@ -132,6 +135,24 @@
       // Hide information on hover
       function hideInfo(val) {
         document.querySelector("#info-" + val).style.display = "none";
+      }
+
+      // Sample Celebs Section
+      function submitSampleCeleb(text) {
+        // Format of text: "Celeb - What_to_say"
+        const splitText = text.split(" - ");
+        const celeb = splitText[0];
+        const whatToSay = splitText[1];
+
+        // Set the input value
+        const name = document.getElementById("name");
+        const whatToSayInput = document.getElementById("say");
+        name.value = celeb;
+        whatToSayInput.value = whatToSay;
+
+        // Submit the form
+        showLoadingAnimation(); // Trigger loading animation
+        form.submit(); // Submit the form
       }
     </script>
   </body>

@@ -25,12 +25,11 @@ body {
 
 .title {
   font-size: 7.2rem;
-  word-wrap: break-word;
   text-align: center;
   margin-top: 1rem;
   font-family: "Poppins", sans-serif;
   text-align: left;
-  padding-left: 2rem;
+  margin-left: 2rem;
 }
 
 /* Description */
@@ -44,7 +43,7 @@ body {
   text-align: justify;
   max-width: 90rem;
   border-radius: 10px;
-  padding: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .description p {
@@ -68,7 +67,6 @@ body {
 }
 
 /* Input Form */
-
 form {
   position: relative;
 }
@@ -161,7 +159,7 @@ form {
 }
 
 .result-container p {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-top: 1rem;
   color: #0f4c5c;
   text-align: justify;
@@ -206,4 +204,24 @@ form {
   margin-top: 1rem;
   color: #0f4c5c;
   text-align: justify;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .title {
+    font-size: 5rem;
+  }
+
+  .description {
+    width: 90%;
+  }
+
+  .description p {
+    font-size: 1.2rem;
+  }
+
+  .input-output {
+    display: flex;
+    flex-direction: column;
+  }
 }

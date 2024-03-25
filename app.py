@@ -53,6 +53,9 @@ def celeb():
     os.remove(audio_path)  # audio file not needed anymore (we have base64)
 
     result = {
+        "celeb": celebrity,
+        "say_what": say_what,
+        "target_language": target_language,
         "response": response_text,
         "audio_base64": audio_base64
     }

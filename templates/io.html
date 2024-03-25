@@ -133,6 +133,10 @@
     {% if result %}
     <div class="result-container" id="result">
       <h2>Response Text:</h2>
+      <p>
+        {{result.celeb}} on "{{ result.say_what }}" in {{ result.target_language
+        }}
+      </p>
       <p>{{ result.response }}</p>
       <h2>Response Audio:</h2>
       <audio controls autoplay>

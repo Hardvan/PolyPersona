@@ -54,7 +54,7 @@
       >
       <div class="info-bubble" id="info-temperature" style="display: none">
         Controls the randomness of the output. <br />Higher value = more diverse
-        and creative results<br />Low value = more focused and accurate output.
+        and creative results<br />Low value = more focused and accurate output
       </div>
       <input
         type="range"
@@ -80,7 +80,7 @@
       >
       <div class="info-bubble" id="info-topK" style="display: none">
         Top k tokens to consider at each step. <br />Higher value = more diverse
-        output <br />Lower value = more focused output.
+        output <br />Lower value = more focused output
       </div>
       <input
         type="range"
@@ -106,7 +106,7 @@
       <div class="info-bubble" id="info-topP" style="display: none">
         Nucleus sampling selects likely tokens. <br />
         Higher 'Top p' yields diverse output, wider possibilities <br />
-        Lower 'Top p' results in focused output, narrower token selection.
+        Lower 'Top p' results in focused output, narrower token selection
       </div>
       <input
         type="range"
@@ -135,11 +135,9 @@
       <h2>Response Text:</h2>
       <p>
         {{result.celeb}} on "{{ result.say_what }}" in {{ result.target_language
-        }}
+        }} with the model parameters: Temperature: {{ result.temperature }}, Top
+        k: {{ result.top_k }}, Top p: {{ result.top_p }}
       </p>
-      <p>Temperature: {{ result.temperature }}</p>
-      <p>Top k: {{ result.top_k }}</p>
-      <p>Top p: {{ result.top_p }}</p>
       <p>{{ result.response }}</p>
       <h2>Response Audio:</h2>
       <audio controls autoplay>

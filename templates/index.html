@@ -76,12 +76,10 @@
       function showLoadingAnimation() {
         const loading = document.getElementById("loading");
         loading.style.display = "flex"; // Show the loading section
+        loading.scrollIntoView({ behavior: "smooth" }); // Scroll to the loading section
         const loadingText = document.getElementById("loading-text");
         const text = loadingText.textContent; // Generating response
         loadingText.textContent = ""; // Clear the text content
-
-        // Scroll to the loading section
-        loading.scrollIntoView({ behavior: "smooth" });
 
         // Animate the loading text
         let index = 0;

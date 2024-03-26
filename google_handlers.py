@@ -21,7 +21,7 @@ LANG_MAP = {"English": "en",
 TRANSLATION_CACHE = {}  # { (text, lang): translation }
 
 
-def translate_message(text, lang):
+def translate_message(text, lang, use_cache=False):
     """Translate the given text to the given language. If the translation is
     already in the cache, it will not be translated again.
 
@@ -29,6 +29,8 @@ def translate_message(text, lang):
     ----
     - `text`: Text to be translated.
     - `lang`: Language to translate to.
+    - `use_cache`: If True, the translation will be fetched from the cache
+                     if it is available. Defaults to False.
 
     Returns
     -------
@@ -36,16 +38,18 @@ def translate_message(text, lang):
     """
 
     # Check if the translation is already in the cache
-    cache_key = (text, lang)
-    if cache_key in TRANSLATION_CACHE:
-        return TRANSLATION_CACHE[cache_key]
+    if use_cache:
+        cache_key = (text, lang)
+        if cache_key in TRANSLATION_CACHE:
+            return TRANSLATION_CACHE[cache_key]
 
     # Translate the text
     translator = Translator()
     translation = translator.translate(text, src="en", dest=LANG_MAP[lang])
 
     # Cache the translation
-    TRANSLATION_CACHE[cache_key] = translation.text
+    if use_cache:
+        TRANSLATION_CACHE[cache_key] = translation.text
 
     return translation.text
 
@@ -54,7 +58,7 @@ def translate_message(text, lang):
 AUDIO_CACHE = {}  # { (text, lang): audio_path }
 
 
-def make_audio(text, lang, audio_path=None, regen=False):
+def make_audio(text, lang, audio_path=None, regen=False, use_cache=False):
     """Generate an audio file for the given text in the given language and
     save it to the specified path. If the audio file is already in the cache,
     it will not be generated again unless regen is set to True.
@@ -67,6 +71,8 @@ def make_audio(text, lang, audio_path=None, regen=False):
                     Make sure that the folder exists (will be created automatically in future versions).
     - `regen`: If True, the audio file will be regenerated
                even if it is already in the cache. Defaults to False.
+    - `use_cache`: If True, the audio file will be fetched from the cache
+                   if it is available. Defaults to False.
 
     Raises
     ------
@@ -81,16 +87,18 @@ def make_audio(text, lang, audio_path=None, regen=False):
         raise ValueError("Audio path not provided.")
 
     # Check if the audio is already in the cache
-    cache_key = (text, lang)
-    if not regen and cache_key in AUDIO_CACHE and os.path.exists(AUDIO_CACHE[cache_key]):
-        return AUDIO_CACHE[cache_key]
+    if use_cache:
+        cache_key = (text, lang)
+        if not regen and cache_key in AUDIO_CACHE and os.path.exists(AUDIO_CACHE[cache_key]):
+            return AUDIO_CACHE[cache_key]
 
     # Generate the audio file
     tts = gTTS(text=text, lang=LANG_MAP[lang], slow=False)
     tts.save(audio_path)
 
     # Cache the audio file
-    AUDIO_CACHE[cache_key] = audio_path
+    if use_cache:
+        AUDIO_CACHE[cache_key] = audio_path
 
     return audio_path
 
@@ -142,7 +150,7 @@ if __name__ == "__main__":
         # Test 1: Without caching (same translation request)
         print("\nTest 1: Without caching")
         start = time.time()
-        translate_message(text, "Hindi")
+        translate_message(text, "Hindi", use_cache=True)
         end = time.time()
         s = end - start
         print(f"Time taken without caching (Test 1): {s:.2f}s")
@@ -150,7 +158,7 @@ if __name__ == "__main__":
         # Test 2: Without caching (different translation request)
         print("\nTest 2: Without caching (different request)")
         start = time.time()
-        translate_message(text, "Marathi")
+        translate_message(text, "Marathi", use_cache=True)
         end = time.time()
         s = end - start
         print(f"Time taken without caching (Test 2): {s:.2f}s")
@@ -158,7 +166,7 @@ if __name__ == "__main__":
         # Test 3: With caching (same translation request)
         print("\nTest 3: With caching")
         start = time.time()
-        translate_message(text, "Hindi")
+        translate_message(text, "Hindi", use_cache=True)
         end = time.time()
         s = end - start
         print(f"Time taken with caching (Test 3): {s:.2f}s")
@@ -198,7 +206,7 @@ if __name__ == "__main__":
         print("\nTest 1: Without caching")
         start = time.time()
         audio_path_1 = make_audio(
-            text, "Hindi", audio_path="./static/audio/test_1.mp3")
+            text, "Hindi", audio_path="./static/audio/test_1.mp3", use_cache=True)
         end = time.time()
         s = end - start
         print(f"Time taken without caching (Test 1): {s:.2f}s")
@@ -207,7 +215,7 @@ if __name__ == "__main__":
         print("\nTest 2: Without caching (different request)")
         start = time.time()
         audio_path_2 = make_audio(
-            text, "Marathi", audio_path="./static/audio/test_2.mp3")
+            text, "Marathi", audio_path="./static/audio/test_2.mp3", use_cache=True)
         end = time.time()
         s = end - start
         print(f"Time taken without caching (Test 2): {s:.2f}s")
@@ -216,7 +224,7 @@ if __name__ == "__main__":
         print("\nTest 3: With caching")
         start = time.time()
         audio_path_1 = make_audio(
-            text, "Hindi", audio_path=audio_path_1)
+            text, "Hindi", audio_path=audio_path_1, use_cache=True)
         end = time.time()
         s = end - start
         print(f"Time taken with caching (Test 3): {s:.2f}s")

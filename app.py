@@ -95,5 +95,39 @@ def celeb():
                            result=result)
 
 
+@app.route("/translate_api", methods=["POST"])
+def translate_api():
+
+    print("In /translate_api")
+
+    data = request.get_json()
+    text = data.get("text")
+    target_lang = data.get("target_lang")
+    original_lang = data.get("original_lang")
+    print(
+        f"Input: {text}, Target language: {target_lang}, Original language: {original_lang}")
+
+    # Get translation & audio
+    translated_text = google_handlers.translate_message(
+        text, target_lang, source=original_lang)
+    audio_path = google_handlers.make_audio(
+        translated_text, target_lang, audio_path="./static/audio/translated.mp3")
+
+    # Convert the audio to base64
+    with open(audio_path, "rb") as audio_file:
+        audio_bytes = audio_file.read()
+        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+    os.remove(audio_path)
+
+    result = {
+        "translated_text": translated_text,
+        "audio_base64": audio_base64
+    }
+
+    print("Result obtained.")
+
+    return jsonify(result)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

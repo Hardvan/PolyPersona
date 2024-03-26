@@ -21,7 +21,7 @@ LANG_MAP = {"English": "en",
 TRANSLATION_CACHE = {}  # { (text, lang): translation }
 
 
-def translate_message(text, lang, use_cache=False):
+def translate_message(text, lang, source="English", use_cache=False):
     """Translate the given text to the given language. If the translation is
     already in the cache, it will not be translated again.
 
@@ -29,6 +29,7 @@ def translate_message(text, lang, use_cache=False):
     ----
     - `text`: Text to be translated.
     - `lang`: Language to translate to.
+    - `source`: Language of the text. Defaults to "English".
     - `use_cache`: If True, the translation will be fetched from the cache
                      if it is available. Defaults to False.
 
@@ -36,6 +37,9 @@ def translate_message(text, lang, use_cache=False):
     -------
     - `str`: Translated text.
     """
+
+    # Map source
+    source = LANG_MAP[source]
 
     # Check if the translation is already in the cache
     if use_cache:
@@ -45,7 +49,7 @@ def translate_message(text, lang, use_cache=False):
 
     # Translate the text
     translator = Translator()
-    translation = translator.translate(text, src="en", dest=LANG_MAP[lang])
+    translation = translator.translate(text, src=source, dest=LANG_MAP[lang])
 
     # Cache the translation
     if use_cache:

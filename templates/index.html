@@ -152,6 +152,39 @@
         showLoadingAnimation(); // Trigger loading animation
         form.submit(); // Submit the form
       }
+
+      // Translate Response Section
+      function translateResponse() {
+        // Fetch the target_language from the select tag with id="translate"
+        // Call the "translate_api" function in the backend
+        // It will return the translated text along with the base64 encoded audio
+        // Fetch the p tag with id="response-text", and set the text content to the translated text
+        // Fetch the audio tag with id="response-audio", and set the src to the base64 encoded audio
+        const target_lang = document.getElementById("translate").value; // Get the target language
+        const original_lang =
+          document.getElementById("response-lang").textContent; // Get the original language
+        const text = document.getElementById("response-text").textContent; // Get the text to be translated
+        fetch("/translate_api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: text,
+            target_lang: target_lang,
+            original_lang: original_lang,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const responseText = document.getElementById("response-text");
+            responseText.textContent = data.translated_text;
+            const responseAudio = document.getElementById("response-audio");
+            responseAudio.src = "data:audio/mpeg;base64," + data.audio_base64;
+            // Set the original language to the translated language
+            document.getElementById("response-lang").textContent = target_lang;
+          });
+      }
     </script>
   </body>
 </html>

@@ -15,6 +15,7 @@ A Flask-based web app designed for generating text responses in the style of dif
 - **Multi-Language Support**: The application supports translation of generated text into multiple languages, enabling users to interact with the system in their preferred language.
 - **Customizable Model Parameters**: Users can adjust model parameters such as `temperature`, `top-k`, and `top-p` to control the randomness and diversity of the generated text.
 - **Audio Generation**: In addition to text responses, the application generates audio files corresponding to the translated text, allowing users to hear the responses in their chosen language.
+- **Real-time Translation**: After the response is generated, users can click on the "Translate" button to convert the text into a different language & produce an audio file in the translated language in real-time.
 - **Web Interface**: PolyPersona provides a user-friendly web interface where users can easily input their preferences and receive generated responses.
 
 ## Tech Stack

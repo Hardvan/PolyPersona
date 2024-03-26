@@ -53,24 +53,58 @@
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
     <script>
-      // If the user presses "Enter" key, submit the form
+      // Model Parameters Section
+      function showTemperatureValue(val) {
+        document.getElementById("temperatureValue").textContent = val;
+      }
+      function showTopKValue(val) {
+        document.getElementById("top_kValue").textContent = val;
+      }
+      function showTopPValue(val) {
+        document.getElementById("top_pValue").textContent = val;
+      }
+      // Show information on hover
+      function showInfo(val) {
+        document.querySelector("#info-" + val).style.display = "block";
+      }
+      // Hide information on hover
+      function hideInfo(val) {
+        document.querySelector("#info-" + val).style.display = "none";
+      }
+
+      // Sample Celebs Section
+      function submitSampleCeleb(text) {
+        // Format of text: "Celeb - What_to_say"
+        const splitText = text.split(" - ");
+        const celeb = splitText[0];
+        const whatToSay = splitText[1];
+
+        // Set the input value
+        const name = document.getElementById("name");
+        const whatToSayInput = document.getElementById("say");
+        name.value = celeb;
+        whatToSayInput.value = whatToSay;
+
+        // Submit the form
+        showLoadingAnimation(); // Trigger loading animation
+        form.submit(); // Submit the form
+      }
+
+      // Loading Section
+      const loading = document.getElementById("loading");
+      window.onload = () => {
+        loading.style.display = "none"; // Hide the loading section when the page is loaded
+      };
       const form = document.getElementById("input-form");
+      form.addEventListener("submit", () => {
+        showLoadingAnimation(); // Trigger loading animation
+      });
+      // Submit if the user presses Enter
       document.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
           showLoadingAnimation(); // Trigger loading animation
           form.submit(); // Submit the form
         }
-      });
-
-      // Loading Section
-      const loading = document.getElementById("loading");
-      // Hide the loading section when the page is loaded
-      window.onload = () => {
-        loading.style.display = "none";
-      };
-      // Show the loading section when the form is submitted
-      form.addEventListener("submit", () => {
-        showLoadingAnimation(); // Trigger loading animation
       });
       // Function to display loading section and animate loading text
       function showLoadingAnimation() {
@@ -78,7 +112,7 @@
         loading.style.display = "flex"; // Show the loading section
         loading.scrollIntoView({ behavior: "smooth" }); // Scroll to the loading section
         const loadingText = document.getElementById("loading-text");
-        const text = loadingText.textContent; // Generating response
+        const text = loadingText.textContent;
         loadingText.textContent = ""; // Clear the text content
 
         // Animate the loading text
@@ -107,67 +141,24 @@
         loading.scrollIntoView({ behavior: "smooth" });
       }
 
-      // If the result section is loaded, scroll to the result section
+      // Scroll to the result section if it exists
       const result = document.getElementById("result");
       if (result) {
         result.scrollIntoView({ behavior: "smooth" });
       }
 
-      // Show the value of the temperature range
-      function showTemperatureValue(val) {
-        document.getElementById("temperatureValue").textContent = val;
-      }
-      // Show the value of the top k range
-      function showTopKValue(val) {
-        document.getElementById("top_kValue").textContent = val;
-      }
-      // Show the value of the top p range
-      function showTopPValue(val) {
-        document.getElementById("top_pValue").textContent = val;
-      }
-
-      // Show information on hover
-      function showInfo(val) {
-        document.querySelector("#info-" + val).style.display = "block";
-      }
-      // Hide information on hover
-      function hideInfo(val) {
-        document.querySelector("#info-" + val).style.display = "none";
-      }
-
-      // Sample Celebs Section
-      function submitSampleCeleb(text) {
-        // Format of text: "Celeb - What_to_say"
-        const splitText = text.split(" - ");
-        const celeb = splitText[0];
-        const whatToSay = splitText[1];
-
-        // Set the input value
-        const name = document.getElementById("name");
-        const whatToSayInput = document.getElementById("say");
-        name.value = celeb;
-        whatToSayInput.value = whatToSay;
-
-        // Submit the form
-        showLoadingAnimation(); // Trigger loading animation
-        form.submit(); // Submit the form
-      }
-
       // Translate Response Section
       function translateResponse() {
-        // Fetch the target_language from the select tag with id="translate"
-        // Call the "translate_api" function in the backend
-        // It will return the translated text along with the base64 encoded audio
-        // Fetch the p tag with id="response-text", and set the text content to the translated text
-        // Fetch the audio tag with id="response-audio", and set the src to the base64 encoded audio
-        const target_lang = document.getElementById("translate").value; // Get the target language
+        // Get the target language
+        const target_lang = document.getElementById("translate").value;
+        // Get the original language
         const original_lang =
-          document.getElementById("response-lang").textContent; // Get the original language
-        const text = document.getElementById("response-text").textContent; // Get the text to be translated
-
+          document.getElementById("response-lang").textContent;
+        // Get the text to be translated
+        const text = document.getElementById("response-text").textContent;
         // Set the content of p tag with id="translate-loading" to "Loading..."
         document.getElementById("translate-loading").textContent = "Loading...";
-
+        // API call
         fetch("/translate_api", {
           method: "POST",
           headers: {
@@ -179,13 +170,12 @@
             original_lang: original_lang,
           }),
         })
-          .then((response) => response.json())
+          .then((response) => response.json()) // Parse the JSON response
           .then((data) => {
-            // Set the translated text
+            // Display the translated text
             const responseText = document.getElementById("response-text");
             responseText.textContent = data.translated_text;
-
-            // Set the translated audio
+            // Change to translated audio
             const responseAudio = document.getElementById("response-audio");
             responseAudio.innerHTML = `<source id="response-audio" src="data:audio/mpeg;base64,${data.audio_base64}" type="audio/mpeg" />Your browser does not support the audio element.`;
 

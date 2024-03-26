@@ -181,10 +181,14 @@
         })
           .then((response) => response.json())
           .then((data) => {
+            // Set the translated text
             const responseText = document.getElementById("response-text");
             responseText.textContent = data.translated_text;
+
+            // Set the translated audio
             const responseAudio = document.getElementById("response-audio");
-            responseAudio.src = "data:audio/mpeg;base64," + data.audio_base64;
+            responseAudio.innerHTML = `<source id="response-audio" src="data:audio/mpeg;base64,${data.audio_base64}" type="audio/mpeg" />Your browser does not support the audio element.`;
+
             // Set the original language to the translated language
             document.getElementById("response-lang").textContent = target_lang;
             // Clear the content of p tag with id="translate-loading"

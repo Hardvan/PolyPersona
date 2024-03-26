@@ -141,9 +141,8 @@
       <p id="response-text">{{ result.response }}</p>
       <p hidden id="response-lang">{{ result.target_language }}</p>
       <h2>Response Audio:</h2>
-      <audio controls autoplay>
+      <audio controls autoplay id="response-audio">
         <source
-          id="response-audio"
           src="data:audio/mpeg;base64,{{ result.audio_base64 }}"
           type="audio/mpeg"
         />
@@ -155,7 +154,9 @@
         <option value="{{ lang }}">{{ lang }}</option>
         {% endfor %}
       </select>
-      <button id="translate-btn" onclick="translateResponse()">Translate</button>
+      <button id="translate-btn" onclick="translateResponse()">
+        Translate
+      </button>
       <p id="translate-loading"></p>
     </div>
     {% endif %}

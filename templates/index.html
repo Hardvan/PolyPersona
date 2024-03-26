@@ -164,6 +164,10 @@
         const original_lang =
           document.getElementById("response-lang").textContent; // Get the original language
         const text = document.getElementById("response-text").textContent; // Get the text to be translated
+
+        // Set the content of p tag with id="translate-loading" to "Loading..."
+        document.getElementById("translate-loading").textContent = "Loading...";
+
         fetch("/translate_api", {
           method: "POST",
           headers: {
@@ -183,6 +187,8 @@
             responseAudio.src = "data:audio/mpeg;base64," + data.audio_base64;
             // Set the original language to the translated language
             document.getElementById("response-lang").textContent = target_lang;
+            // Clear the content of p tag with id="translate-loading"
+            document.getElementById("translate-loading").textContent = "";
           });
       }
     </script>

@@ -155,7 +155,8 @@
         <option value="{{ lang }}">{{ lang }}</option>
         {% endfor %}
       </select>
-      <button onclick="translateResponse()">Translate</button>
+      <button id="translate-btn" onclick="translateResponse()">Translate</button>
+      <p id="translate-loading"></p>
     </div>
     {% endif %}
     <!-- End of Result Section -->

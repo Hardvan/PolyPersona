@@ -10,9 +10,30 @@ import os
 app = Flask(__name__)
 
 
+# Sample Celebrities
+SAMPLE_CELEBS = {
+    "Marcus Aurelius": {
+        "say": "Thoughts on Social Media & Gen-Z",
+        "image_src": "./static/images/cards/marcus_aurelius.png"
+    },
+    "Buddha": {
+        "say": "Entrepreneurship & Correlation with Mental Health",
+        "image_src": "./static/images/cards/buddha.jpg"
+    },
+    "Albert Einstein": {
+        "say": "Existentialism in the Digital Age",
+        "image_src": "./static/images/cards/einstein.jpg"
+    },
+    "Chanakya": {
+        "say": "48 Laws of Power & his interpretation of it",
+        "image_src": "./static/images/cards/chanakya.jpg"
+    },
+}
+
+
 @app.route('/')
 def index():
-    return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP)
+    return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP, SAMPLE_CELEBS=SAMPLE_CELEBS)
 
 
 @app.route('/celeb', methods=["POST"])
@@ -37,7 +58,7 @@ def celeb():
 
     # Check if all fields are filled
     if not celebrity or not say_what:
-        return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP, error="Please fill in all the fields.")
+        return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP, SAMPLE_CELEBS=SAMPLE_CELEBS, error="Please fill in all the fields.")
 
     # Get the response
     response_text, audio_path = gemini.handler(celebrity, say_what,
@@ -63,7 +84,7 @@ def celeb():
         "audio_base64": audio_base64
     }
 
-    return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP, result=result)
+    return render_template("index.html", LANG_MAP=google_handlers.LANG_MAP, SAMPLE_CELEBS=SAMPLE_CELEBS, result=result)
 
 
 if __name__ == "__main__":

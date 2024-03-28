@@ -28,6 +28,10 @@ SAMPLE_CELEBS = {
         "say": "48 Laws of Power & his interpretation of it",
         "image_src": "./static/images/cards/chanakya.jpg"
     },
+    "Goku": {
+        "say": "The importance of training & discipline",
+        "image_src": "./static/images/cards/goku.jpg"
+    },
 }
 
 

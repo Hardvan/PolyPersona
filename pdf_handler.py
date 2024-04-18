@@ -50,6 +50,12 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     # Split the response into sentences
     sentences = response.split(". ")
 
+    # Add a dot for each sentence
+    sentences = [sentence + "." for sentence in sentences]
+    
+    # Remove the last dot from the last sentence
+    sentences[-1] = sentences[-1][:-1]
+
     # Set font and size for the response text
     pdf.setFont("Helvetica", size=12)
 

@@ -5,6 +5,7 @@ import os
 # Custom modules
 import google_handlers
 import gemini
+import pdf_handler
 
 
 app = Flask(__name__)
@@ -252,6 +253,8 @@ def generate_pdf():
     result = {
         "pdf_url": pdf_url
     }
+
+    print("✅ Result obtained in /generate_pdf.")
 
     return jsonify(result)
 

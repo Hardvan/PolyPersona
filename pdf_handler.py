@@ -25,10 +25,11 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     pdf = canvas.Canvas(pdf_path)
 
     # Set font and title
-    pdf.setFont("Helvetica", size=14)
+    pdf.setFont("Helvetica", size=20)
     pdf.drawString(30, 750, "Celebrity Quote Generation")
 
     # Add prompt details
+    pdf.setFont("Helvetica", size=12)
     y_pos = 700
     pdf.drawString(30, y_pos, f"Celebrity: {celeb}")
     y_pos -= 20
@@ -46,12 +47,11 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     y_pos -= 40  # Add some spacing
     pdf.setFont("Helvetica", size=12)
     pdf.drawString(30, y_pos, "Response:")
-    pdf.drawString(50, y_pos - 10, response)
+    pdf.drawString(50, y_pos - 20, response)
 
     # Save the PDF document
     pdf.save()
 
-    # Return the file path
     return pdf_path
 
 

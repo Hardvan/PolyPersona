@@ -287,6 +287,19 @@ form {
   text-align: justify;
 }
 
+/* Generate PDF Section */
+#generate-pdf-btn {
+  width: auto;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0f4c5c;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 /* Translate Response Section */
 /* Translate select dropdown menu */
 #translate {

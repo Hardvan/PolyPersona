@@ -99,7 +99,7 @@ def handler(celebrity, say_what, model_parameters, target_language, audio_path):
 Celebrity: {celebrity}
 I want them to say: {say_what}
 """
-    print(f"Prompt: {prompt}")
+    print(f"⌨️  Prompt:\n{prompt}")
 
     # Generate config object
     generation_config = get_config(
@@ -139,7 +139,7 @@ def fine_tune(text, fine_tune, original_lang):
 Input text:
 {text}
 """
-    print(f"Prompt: {prompt}")
+    print(f"⌨️  Prompt:\n{prompt}")
 
     # Return response from gemini model
     return preprocess(get_response(prompt))

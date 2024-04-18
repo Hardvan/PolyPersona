@@ -60,6 +60,8 @@ def index():
 @app.route('/celeb', methods=["POST"])
 def celeb():
 
+    print("=== In /celeb ===")
+
     # Fetch form data
     celebrity = request.form.get("name")
     say_what = request.form.get("say")
@@ -67,9 +69,10 @@ def celeb():
     temperature = request.form.get("temperature")
     top_k = request.form.get("top_k")
     top_p = request.form.get("top_p")
-    print(f"Input: {celebrity}, {say_what}, {target_language}")
     print(
-        f"Model parameters (temperature, top_k, top_p): {temperature}, {top_k}, {top_p}")
+        f"📥 Input: {celebrity}\n🗣️  Say: {say_what}\n🔠 Language: {target_language}")
+    print(
+        f"⚙️  Model parameters\n🌡️  Temperature: {temperature}\n🔝 Top-k: {top_k}\n🔝 Top-p: {top_p}")
 
     model_parameters = {
         "temperature": float(temperature),
@@ -90,7 +93,7 @@ def celeb():
                                                model_parameters=model_parameters,
                                                target_language=target_language,
                                                audio_path="./static/audio/response.mp3")
-    print(f"Response: {response_text}, {audio_path}")
+    print(f"📤 Response:\n{response_text}")
 
     # Convert the audio to base64
     with open(audio_path, "rb") as audio_file:
@@ -126,7 +129,7 @@ def translate_api():
     target_lang = data.get("target_lang")
     original_lang = data.get("original_lang")
     print(
-        f"Input: {text}, Target language: {target_lang}, Original language: {original_lang}")
+        f"📥 Input text: {text}\nOriginal Language: {original_lang}\nTarget Language: {target_lang}")
 
     # Get translation & audio
     translated_text = google_handlers.translate_message(
@@ -145,8 +148,7 @@ def translate_api():
         "audio_base64": audio_base64
     }
 
-    print("✅ Result obtained.")
-
+    print("✅ Result obtained in /translate_api.")
     return jsonify(result)
 
 
@@ -159,8 +161,8 @@ def fine_tune_api():
     text = data.get("text")
     fine_tune = data.get("fine_tune")
     original_lang = data.get("original_lang")
-    print(f"Input text: {text}, Fine-tune value: {fine_tune}",
-          f"Original language: {original_lang}")
+    print(
+        f"📥 Input text: {text}\nFine-tune: {fine_tune}\nOriginal Language: {original_lang}")
 
     # Call Gemini API to fine-tune the text
     fine_tuned_text = gemini.fine_tune(text, fine_tune, original_lang)
@@ -180,8 +182,7 @@ def fine_tune_api():
         "audio_base64": audio_base64
     }
 
-    print("✅ Result obtained.")
-
+    print("✅ Result obtained in /fine_tune_api.")
     return jsonify(result)
 
 

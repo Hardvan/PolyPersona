@@ -45,9 +45,31 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
 
     # Add response text
     y_pos -= 40  # Add some spacing
-    pdf.setFont("Helvetica", size=12)
     pdf.drawString(30, y_pos, "Response:")
-    pdf.drawString(50, y_pos - 20, response)
+
+    # Split the response into sentences
+    sentences = response.split(". ")
+
+    # Set font and size for the response text
+    pdf.setFont("Helvetica", size=12)
+
+    # Add each sentence as a separate line
+    for sentence in sentences:
+        # Split the sentence into words
+        words = sentence.split()
+        line = ''
+        for word in words:
+            if pdf.stringWidth(line + word + ' ') < 500:
+                line += word + ' '
+            else:
+                # Add line to PDF
+                y_pos -= 20
+                pdf.drawString(50, y_pos, line.strip())
+                # Start a new line
+                line = word + ' '
+        # Add remaining line to PDF
+        y_pos -= 20
+        pdf.drawString(50, y_pos, line.strip())
 
     # Save the PDF document
     pdf.save()
@@ -64,7 +86,7 @@ if __name__ == "__main__":
     temperature = 0.7
     top_k = 50
     top_p = 0.9
-    response = "That's great! When are you planning to go?"
+    response = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
     pdf_path = generate_pdf(celeb, say_what, target_language,
                             temperature, top_k, top_p, response)

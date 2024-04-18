@@ -242,6 +242,45 @@
             document.getElementById("translate-loading").textContent = "";
           });
       }
+
+      // Generate PDF
+      function generatePDF() {
+        // Get the celeb name
+        const celeb = document.getElementById("celeb-name").textContent;
+        // Get the text to be said
+        const say_what = document.getElementById("say-what").textContent;
+        // Get the target language
+        const target_language =
+          document.getElementById("response-lang").textContent;
+        // Get the model parameters
+        const temperature = document.getElementById("temp").textContent;
+        const top_k = document.getElementById("top-k").textContent;
+        const top_p = document.getElementById("top-p").textContent;
+        // Get the response text
+        const response = document.getElementById("response-text").textContent;
+
+        // API call
+        fetch("/generate_pdf", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            celeb: celeb,
+            say_what: say_what,
+            target_language: target_language,
+            temperature: temperature,
+            top_k: top_k,
+            top_p: top_p,
+            response: response,
+          }),
+        })
+          .then((response) => response.json()) // Parse the JSON response
+          .then((data) => {
+            // Open the PDF in a new tab
+            window.open(data.pdf_url, "_blank");
+          });
+      }
     </script>
   </body>
 </html>

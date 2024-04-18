@@ -125,13 +125,15 @@
     </form>
   </div>
   <!-- End of Input Form -->
+
   <div class="output">
     <!-- Loading Section -->
     {% include "loading.html" %}
-    <!-- End of Loading Section -->
+
     <!-- Result Section -->
     {% if result %}
     <div class="result-container" id="result">
+      <!-- Result Text -->
       <h2>Response Text:</h2>
       <p>
         {{result.celeb}} on "{{ result.say_what }}" in {{ result.target_language
@@ -139,7 +141,13 @@
         k: {{ result.top_k }}, Top p: {{ result.top_p }}
       </p>
       <p id="response-text">{{ result.response }}</p>
+      <p hidden id="celeb-name">{{ result.celeb }}</p>
+      <p hidden id="say-what">{{ result.say_what }}</p>
       <p hidden id="response-lang">{{ result.target_language }}</p>
+      <p hidden id="temp">{{ result.temperature }}</p>
+      <p hidden id="top-k">{{ result.top_k }}</p>
+      <p hidden id="top-p">{{ result.top_p }}</p>
+      <!-- Result Audio -->
       <h2 id="audio-header">Response Audio:</h2>
       <audio controls autoplay id="response-audio">
         <source
@@ -148,6 +156,10 @@
         />
         Your browser does not support the audio element.
       </audio>
+      <!-- Generate PDF Button -->
+      <button id="generate-pdf-btn" onclick="generatePDF()">
+        Generate PDF
+      </button>
 
       <!-- Feedback Section -->
       <!-- Translate button with language drop-down -->

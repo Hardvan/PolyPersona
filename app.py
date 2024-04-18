@@ -186,5 +186,75 @@ def fine_tune_api():
     return jsonify(result)
 
 
+"""
+Implement this JS function API call:
+// Generate PDF
+      function generatePDF() {
+        // Get the celeb name
+        const celeb = document.getElementById("celeb-name").textContent;
+        // Get the text to be said
+        const say_what = document.getElementById("say-what").textContent;
+        // Get the target language
+        const target_language =
+          document.getElementById("response-lang").textContent;
+        // Get the model parameters
+        const temperature = document.getElementById("temp").textContent;
+        const top_k = document.getElementById("top-k").textContent;
+        const top_p = document.getElementById("top-p").textContent;
+        // Get the response text
+        const response = document.getElementById("response-text").textContent;
+
+        // API call
+        fetch("/generate_pdf", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            celeb: celeb,
+            say_what: say_what,
+            target_language: target_language,
+            temperature: temperature,
+            top_k: top_k,
+            top_p: top_p,
+            response: response,
+          }),
+        })
+          .then((response) => response.json()) // Parse the JSON response
+          .then((data) => {
+            // Open the PDF in a new tab
+            window.open(data.pdf_url, "_blank");
+          });
+      }
+"""
+
+
+@app.route("/generate_pdf", methods=["POST"])
+def generate_pdf():
+
+    print("=== In /generate_pdf ===")
+
+    data = request.get_json()
+    celeb = data.get("celeb")
+    say_what = data.get("say_what")
+    target_language = data.get("target_language")
+    temperature = data.get("temperature")
+    top_k = data.get("top_k")
+    top_p = data.get("top_p")
+    response = data.get("response")
+    print(
+        f"📥 Input: {celeb}\n🗣️  Say: {say_what}\n🔠 Language: {target_language}\n🌡️  Temperature: {temperature}\n🔝 Top-k: {top_k}\n🔝 Top-p: {top_p}\n📤 Response: {response}")
+
+    # Generate the PDF
+    pdf_url = pdf_handler.generate_pdf(celeb, say_what, target_language,
+                                       temperature, top_k, top_p, response)
+
+    result = {
+        "pdf_url": pdf_url
+    }
+
+    return jsonify(result)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

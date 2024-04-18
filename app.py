@@ -102,7 +102,7 @@ def celeb():
 @app.route("/translate_api", methods=["POST"])
 def translate_api():
 
-    print("In /translate_api")
+    print("=== In /translate_api ===")
 
     data = request.get_json()
     text = data.get("text")
@@ -128,7 +128,42 @@ def translate_api():
         "audio_base64": audio_base64
     }
 
-    print("Result obtained.")
+    print("✅ Result obtained.")
+
+    return jsonify(result)
+
+
+@app.route("/fine_tune_api", methods=["POST"])
+def fine_tune_api():
+
+    print("=== In /fine_tune_api ===")
+
+    data = request.get_json()
+    text = data.get("text")
+    fine_tune = data.get("fine_tune")
+    original_lang = data.get("original_lang")
+    print(f"Input text: {text}, Fine-tune value: {fine_tune}",
+          f"Original language: {original_lang}")
+
+    # Call Gemini API to fine-tune the text
+    fine_tuned_text = gemini.fine_tune(text, fine_tune, original_lang)
+
+    # Get audio
+    audio_path = google_handlers.make_audio(
+        fine_tuned_text, target_language=original_lang, audio_path="./static/audio/fine_tuned.mp3")
+
+    # Convert the audio to base64
+    with open(audio_path, "rb") as audio_file:
+        audio_bytes = audio_file.read()
+        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+    os.remove(audio_path)
+
+    result = {
+        "fine_tuned_text": fine_tuned_text,
+        "audio_base64": audio_base64
+    }
+
+    print("✅ Result obtained.")
 
     return jsonify(result)
 

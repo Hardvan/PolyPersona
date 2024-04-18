@@ -148,6 +148,8 @@
         />
         Your browser does not support the audio element.
       </audio>
+
+      <!-- Feedback Section -->
       <!-- Translate button with language drop-down -->
       <select id="translate" name="translate">
         {% for lang in LANG_MAP.keys() %}
@@ -157,7 +159,19 @@
       <button id="translate-btn" onclick="translateResponse()">
         Translate
       </button>
+      <!-- Fine tune the text (Funny, More detailed, etc.) -->
+      <select id="fine-tune" name="fine-tune">
+        <option value="Funny">Funny</option>
+        <option value="More detailed">More detailed</option>
+        <option value="More professional">More professional</option>
+        <option value="More casual">More casual</option>
+      </select>
+      <button id="fine-tune-btn" onclick="fineTuneResponse()">
+        Fine-tune
+      </button>
+      <!-- Loading text -->
       <p id="translate-loading"></p>
+      <!-- End of Feedback Section -->
     </div>
     {% endif %}
     <!-- End of Result Section -->

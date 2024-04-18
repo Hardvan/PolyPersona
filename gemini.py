@@ -120,6 +120,31 @@ I want them to say: {say_what}
     return translation, audio_path
 
 
+def fine_tune(text, fine_tune, original_lang):
+    """Fine-tune the model with the given text.
+
+    Args
+    ----
+    - `text`: Text to fine-tune the model.
+    - `fine_tune`: Fine-tune value. Can be "Funny", "More detailed", etc.
+
+    Returns
+    -------
+    - `str`: Fine-tuned response text.
+    """
+
+    # Structure the prompt
+    prompt = f"""Fine tune the following text to make it: '{fine_tune}'
+    
+Input text:
+{text}
+"""
+    print(f"Prompt: {prompt}")
+
+    # Return response from gemini model
+    return preprocess(get_response(prompt))
+
+
 if __name__ == "__main__":
 
     def test_handler():

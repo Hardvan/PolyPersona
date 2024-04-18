@@ -150,7 +150,7 @@ def fine_tune_api():
 
     # Get audio
     audio_path = google_handlers.make_audio(
-        fine_tuned_text, target_language=original_lang, audio_path="./static/audio/fine_tuned.mp3")
+        fine_tuned_text, original_lang, audio_path="./static/audio/fine_tuned.mp3")
 
     # Convert the audio to base64
     with open(audio_path, "rb") as audio_file:

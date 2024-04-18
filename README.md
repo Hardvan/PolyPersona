@@ -16,16 +16,21 @@ A Flask-based web app designed for generating text responses in the style of dif
 - **Customizable Model Parameters**: Users can adjust model parameters such as `temperature`, `top-k`, and `top-p` to control the randomness and diversity of the generated text.
 - **Audio Generation**: In addition to text responses, the application generates audio files corresponding to the translated text, allowing users to hear the responses in their chosen language.
 - **Real-time Translation**: After the response is generated, users can click on the "Translate" button to convert the text into a different language & produce an audio file in the translated language in real-time.
+- **PDF Generation**: Users can download a PDF file containing the input details, model parameters, generated response, and translated response, enabling them to save and share the content.
+- **Fine-tuning**: The application allows users to fine-tune the response by making it more engaging, funny, casual, or formal, etc., depending on their preferences.
 - **Web Interface**: PolyPersona provides a user-friendly web interface where users can easily input their preferences and receive generated responses.
 
 ## Tech Stack
 
-- **Flask**: Flask is used as the web framework for handling HTTP requests and rendering HTML templates.
-- **gTTs**: The gTTs library is used for converting text to speech, allowing the application to generate audio files corresponding to the translated text.
-- **googletrans**: The googletrans library is used for translating text into different languages, enabling users to interact with the system in their preferred language.
-- **HTML/CSS/JavaScript**: Frontend components are implemented using HTML for structure, CSS for styling, and JavaScript for interactivity.
-- **Python**: Python is the primary programming language used for backend development, including text generation and interaction with external APIs.
-- **dotenv**: The dotenv library is used for loading environment variables from a `.env` file, providing configuration options for the application.
+- **Flask**: Web framework for handling HTTP requests and rendering HTML templates.
+- **gTTs**: Converting text to speech, allowing the application to generate audio files corresponding to the translated text.
+- **googletrans**: Translating text into different languages, enabling users to interact with the system in their preferred language.
+- **Gemini API**: Generating text responses in the style of different celebrities, leveraging NLP models to mimic their speech patterns.
+- **reportlab**: Generating PDF files containing the input details, model parameters and generated response, allowing users to save and share the content.
+- **HTML/CSS/JavaScript**: Frontend components are implemented using HTML for structure, CSS for styling, and JavaScript for interactivity. Vanilla CSS & JS are used for simplicity, maximum compatibility & flexibility, and minimal dependencies.
+- **Python**: Primary programming language used for backend development, including text generation and interaction with external APIs.
+- **dotenv**: Loading environment variables from a `.env` file, providing configuration options for the application.
+- **Render**: Hosting the application on Render, providing a scalable and reliable platform for running web applications.
 
 ## Installation
 
@@ -82,9 +87,9 @@ A Flask-based web app designed for generating text responses in the style of dif
 
    Replace `your_api_key` with the API key you got from the google gemini website.
 
-   Warning: Don't enclose the API key in double or single quotes in the `.env` file.
+   Warning: Don't share your API key with anyone.
 
-   Note: Don't share your API key with anyone.
+   Note: Don't enclose the API key in double or single quotes in the `.env` file.
 
 6. Run the app
 

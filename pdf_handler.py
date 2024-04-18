@@ -47,35 +47,23 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     y_pos -= 40  # Add some spacing
     pdf.drawString(30, y_pos, "Response:")
 
-    # Split the response into sentences
-    sentences = response.split(". ")
+    # Split the response into words
+    words = response.split()
+    line = ''
+    for word in words:
+        # Check if the line can fit the word
+        if pdf.stringWidth(line + word + ' ') < 500:
+            line += word + ' '
+        else:
+            # Add line to PDF
+            y_pos -= 20
+            pdf.drawString(50, y_pos, line.strip())
+            # Start a new line
+            line = word + ' '
 
-    # Add a dot for each sentence
-    sentences = [sentence + "." for sentence in sentences]
-    
-    # Remove the last dot from the last sentence
-    sentences[-1] = sentences[-1][:-1]
-
-    # Set font and size for the response text
-    pdf.setFont("Helvetica", size=12)
-
-    # Add each sentence as a separate line
-    for sentence in sentences:
-        # Split the sentence into words
-        words = sentence.split()
-        line = ''
-        for word in words:
-            if pdf.stringWidth(line + word + ' ') < 500:
-                line += word + ' '
-            else:
-                # Add line to PDF
-                y_pos -= 20
-                pdf.drawString(50, y_pos, line.strip())
-                # Start a new line
-                line = word + ' '
-        # Add remaining line to PDF
-        y_pos -= 20
-        pdf.drawString(50, y_pos, line.strip())
+    # Add remaining line to PDF
+    y_pos -= 20
+    pdf.drawString(50, y_pos, line.strip())
 
     # Save the PDF document
     pdf.save()

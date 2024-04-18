@@ -34,12 +34,27 @@ SAMPLE_CELEBS = {
     },
 }
 
+# Fine tune options
+FINE_TUNE_OPTIONS = [
+    "Funny",
+    "More detailed",
+    "More concise",
+    "More casual",
+    "More formal",
+    "More professional",
+    "More emotional",
+    "Engaging",
+    "Deep",
+    "Light-hearted",
+]
+
 
 @app.route('/')
 def index():
     return render_template("index.html",
                            LANG_MAP=google_handlers.LANG_MAP,
-                           SAMPLE_CELEBS=SAMPLE_CELEBS)
+                           SAMPLE_CELEBS=SAMPLE_CELEBS,
+                           FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS)
 
 
 @app.route('/celeb', methods=["POST"])
@@ -67,6 +82,7 @@ def celeb():
         return render_template("index.html",
                                LANG_MAP=google_handlers.LANG_MAP,
                                SAMPLE_CELEBS=SAMPLE_CELEBS,
+                               FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS,
                                error="Please fill in all the fields.")
 
     # Get the response
@@ -96,6 +112,7 @@ def celeb():
     return render_template("index.html",
                            LANG_MAP=google_handlers.LANG_MAP,
                            SAMPLE_CELEBS=SAMPLE_CELEBS,
+                           FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS,
                            result=result)
 
 

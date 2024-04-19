@@ -71,6 +71,25 @@ def get_audio_base64(audio_path):
     return audio_base64
 
 
+def render_index(**kwargs):
+    """Renders the index page with the given keyword arguments.
+
+    Args
+    ----
+    - `**kwargs`: Keyword arguments to pass to the template. Eg. `error`, `result`, etc.
+
+    Returns
+    -------
+    - `render_template`: Renders the index page with the given keyword arguments.
+    """
+
+    return render_template("index.html",
+                           LANG_MAP=google_handlers.LANG_MAP,
+                           SAMPLE_CELEBS=SAMPLE_CELEBS,
+                           FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS,
+                           **kwargs)
+
+
 # ? Routes
 # / : Home page
 # /celeb : To get the response for a celebrity
@@ -78,12 +97,10 @@ def get_audio_base64(audio_path):
 # /fine_tune_api : To fine-tune a text
 # /generate_pdf : To generate a PDF with the response with embedded QR code to the website
 
+
 @app.route('/')
 def index():
-    return render_template("index.html",
-                           LANG_MAP=google_handlers.LANG_MAP,
-                           SAMPLE_CELEBS=SAMPLE_CELEBS,
-                           FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS)
+    return render_index()
 
 
 @app.route('/celeb', methods=["POST"])
@@ -110,12 +127,8 @@ def celeb():
     }
 
     # Check if all fields are filled
-    if not celebrity or not say_what:
-        return render_template("index.html",
-                               LANG_MAP=google_handlers.LANG_MAP,
-                               SAMPLE_CELEBS=SAMPLE_CELEBS,
-                               FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS,
-                               error="Please fill in all the fields.")
+    if not celebrity or not say_what or not target_language:
+        return render_index(error="Please fill in all the fields.")
 
     # Get the response
     response_text, audio_path = gemini.handler(celebrity, say_what,
@@ -139,11 +152,7 @@ def celeb():
     }
 
     print("✅ Result obtained in /celeb.")
-    return render_template("index.html", result=result,
-                           LANG_MAP=google_handlers.LANG_MAP,
-                           SAMPLE_CELEBS=SAMPLE_CELEBS,
-                           FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS,
-                           )
+    return render_index(result=result)
 
 
 @app.route("/translate_api", methods=["POST"])

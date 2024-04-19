@@ -45,14 +45,6 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     y_pos -= 20
     pdf.drawString(30, y_pos, f"Top-p: {top_p}")
 
-    # Add the qr code image to the PDF
-    qr_path = qr_handler.save_qr_code(
-        "https://polypersona.onrender.com/", "./static/qr/qr.png")
-    # Fetch the width and height of the QR code image dynamically
-    with Image.open(qr_path) as img:
-        width, height = img.size
-    pdf.drawInlineImage(qr_path, 400, 580, width=width/3, height=height/3)
-
     # Add response text
     y_pos -= 40  # Add some spacing
     pdf.drawString(30, y_pos, "Response:")
@@ -74,6 +66,14 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     # Add remaining line to PDF
     y_pos -= 20
     pdf.drawString(50, y_pos, line.strip())
+
+    # Add the qr code image to the PDF
+    qr_path = qr_handler.save_qr_code(
+        "https://polypersona.onrender.com/", "./static/qr/qr.png")
+    # Fetch the width and height of the QR code image dynamically
+    with Image.open(qr_path) as img:
+        width, height = img.size
+    pdf.drawInlineImage(qr_path, 200, 100, width=width/2, height=height/2)
 
     # Save the PDF document
     pdf.save()

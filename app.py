@@ -11,6 +11,8 @@ import pdf_handler
 app = Flask(__name__)
 
 
+# ? Constants
+
 # Sample Celebrities
 SAMPLE_CELEBS = {
     "Marcus Aurelius": {
@@ -49,6 +51,32 @@ FINE_TUNE_OPTIONS = [
     "Light-hearted",
 ]
 
+
+# ? Helper functions
+def get_audio_base64(audio_path):
+    """Converts the audio file to base64.
+
+    Args
+    ----
+    - `audio_path`: Path to the audio file.
+
+    Returns
+    -------
+    - `audio_base64`: Base64 encoded audio.
+    """
+
+    with open(audio_path, "rb") as audio_file:
+        audio_bytes = audio_file.read()
+        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+    return audio_base64
+
+
+# ? Routes
+# / : Home page
+# /celeb : To get the response for a celebrity
+# /translate_api : To translate a text
+# /fine_tune_api : To fine-tune a text
+# /generate_pdf : To generate a PDF with the response with embedded QR code to the website
 
 @app.route('/')
 def index():
@@ -91,15 +119,12 @@ def celeb():
 
     # Get the response
     response_text, audio_path = gemini.handler(celebrity, say_what,
-                                               model_parameters=model_parameters,
-                                               target_language=target_language,
+                                               model_parameters, target_language,
                                                audio_path="./static/audio/response.mp3")
     print(f"📤 Response:\n{response_text}")
 
     # Convert the audio to base64
-    with open(audio_path, "rb") as audio_file:
-        audio_bytes = audio_file.read()
-        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+    audio_base64 = get_audio_base64(audio_path)
     os.remove(audio_path)  # audio file not needed anymore (we have base64)
 
     result = {
@@ -113,11 +138,12 @@ def celeb():
         "audio_base64": audio_base64
     }
 
-    return render_template("index.html",
+    print("✅ Result obtained in /celeb.")
+    return render_template("index.html", result=result,
                            LANG_MAP=google_handlers.LANG_MAP,
                            SAMPLE_CELEBS=SAMPLE_CELEBS,
                            FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS,
-                           result=result)
+                           )
 
 
 @app.route("/translate_api", methods=["POST"])
@@ -125,6 +151,7 @@ def translate_api():
 
     print("=== In /translate_api ===")
 
+    # Get the input data
     data = request.get_json()
     text = data.get("text")
     target_lang = data.get("target_lang")
@@ -139,9 +166,7 @@ def translate_api():
         translated_text, target_lang, audio_path="./static/audio/translated.mp3")
 
     # Convert the audio to base64
-    with open(audio_path, "rb") as audio_file:
-        audio_bytes = audio_file.read()
-        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+    audio_base64 = get_audio_base64(audio_path)
     os.remove(audio_path)
 
     result = {
@@ -158,6 +183,7 @@ def fine_tune_api():
 
     print("=== In /fine_tune_api ===")
 
+    # Get the input data
     data = request.get_json()
     text = data.get("text")
     fine_tune = data.get("fine_tune")
@@ -173,9 +199,7 @@ def fine_tune_api():
         fine_tuned_text, original_lang, audio_path="./static/audio/fine_tuned.mp3")
 
     # Convert the audio to base64
-    with open(audio_path, "rb") as audio_file:
-        audio_bytes = audio_file.read()
-        audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+    audio_base64 = get_audio_base64(audio_path)
     os.remove(audio_path)
 
     result = {
@@ -192,6 +216,7 @@ def generate_pdf():
 
     print("=== In /generate_pdf ===")
 
+    # Get the input data
     data = request.get_json()
     celeb = data.get("celeb")
     say_what = data.get("say_what")
@@ -200,8 +225,13 @@ def generate_pdf():
     top_k = data.get("top_k")
     top_p = data.get("top_p")
     response = data.get("response")
-    print(
-        f"📥 Input: {celeb}\n🗣️  Say: {say_what}\n🔠 Language: {target_language}\n🌡️  Temperature: {temperature}\n🔝 Top-k: {top_k}\n🔝 Top-p: {top_p}\n📤 Response: {response}")
+    print(f"""📥 Input: {celeb}
+🗣️  Say: {say_what}
+🔠 Language: {target_language}
+🌡️  Temperature: {temperature}
+🔝 Top-k: {top_k}
+🔝 Top-p: {top_p}
+📤 Response: {response}""")
 
     # Generate the PDF
     pdf_url = pdf_handler.generate_pdf(celeb, say_what, target_language,
@@ -212,7 +242,6 @@ def generate_pdf():
     }
 
     print("✅ Result obtained in /generate_pdf.")
-
     return jsonify(result)
 
 

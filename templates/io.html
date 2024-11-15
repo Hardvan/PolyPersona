@@ -1,5 +1,6 @@
 <!-- Input & Output -->
 <div class="input-output">
+  <!-- Input Form -->
   <div class="input-form-container">
     <form action="/celeb" method="POST" id="input-form">
       <h2>Input Form:</h2>
@@ -126,6 +127,7 @@
   </div>
   <!-- End of Input Form -->
 
+  <!-- Output Section -->
   <div class="output">
     <!-- Loading Section -->
     {% include "loading.html" %}
@@ -184,6 +186,7 @@
     </div>
     {% endif %}
     <!-- End of Result Section -->
+
     <!-- Error Section -->
     {% if error %}
     <div class="error-container" id="error">
@@ -191,7 +194,6 @@
       <p>{{ error }}</p>
     </div>
     {% endif %}
-    <!-- End of Error Section -->
   </div>
 </div>
 <!-- End of Input & Output -->

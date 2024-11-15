@@ -1,4 +1,4 @@
-# PolyPersona
+# PolyPersona: An AI Powered Personality Emulation Framework with Multi-Language Support
 
 A Flask-based web app designed for generating text responses in the style of different celebrities from the past, present, or future. It utilizes natural language processing (NLP) models to mimic the speech patterns, humor, and thought processes of various public figures. Users can input the name of a celebrity, specify what they want them to say, choose a target language, and adjust model parameters to customize the response. It synergistically integrates Google's gTTS, googletrans libraries & Gemini API to provide a seamless user experience.
 

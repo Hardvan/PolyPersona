@@ -120,15 +120,19 @@ def celeb():
     print(
         f"⚙️  Model parameters\n🌡️  Temperature: {temperature}\n🔝 Top-k: {top_k}\n🔝 Top-p: {top_p}")
 
+    # Check if all fields are filled
+    if not celebrity or not say_what or not target_language:
+        return render_index(error="Please fill in all the fields.")
+
+    # If say_what is more than 100 words, return an error
+    if len(say_what.split()) > 100:
+        return render_index(error="Please keep the message under 100 words.")
+
     model_parameters = {
         "temperature": float(temperature),
         "top_k": int(top_k),
         "top_p": float(top_p)
     }
-
-    # Check if all fields are filled
-    if not celebrity or not say_what or not target_language:
-        return render_index(error="Please fill in all the fields.")
 
     # Get the response
     response_text, audio_path = gemini.handler(celebrity, say_what,

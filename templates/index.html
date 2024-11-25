@@ -72,6 +72,23 @@
         document.querySelector("#info-" + val).style.display = "none";
       }
 
+      // Word Limit in What to Say section
+      function checkWordLimit(textarea) {
+        const maxWords = 100;
+        const words = textarea.value.trim().split(/\s+/);
+        const wordCount = words.filter((word) => word).length;
+        const wordCountDisplay = document.getElementById("word-count");
+
+        if (wordCount > maxWords) {
+          textarea.value = words.slice(0, maxWords).join(" ");
+        }
+
+        wordCountDisplay.textContent = `${Math.min(
+          wordCount,
+          maxWords
+        )}/${maxWords} words`;
+      }
+
       // Sample Celebs Section
       function submitSampleCeleb(text) {
         // Format of text: "Celeb - What_to_say"

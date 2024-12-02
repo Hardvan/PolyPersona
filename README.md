@@ -11,6 +11,7 @@ A Flask-based web app designed for generating text responses in the style of dif
 ## Features
 
 - **Text Generation**: Users can input a celebrity's name and specify what they want them to say. The application generates text responses that closely resemble the style of the chosen celebrity.
+- **Image Generation**: The Pollinations API is used to generate images of the specified celebrity, allowing users to visualize the person they are interacting with.
 - **Multi-Language Support**: The application supports translation of generated text into multiple languages, enabling users to interact with the system in their preferred language.
 - **Customizable Model Parameters**: Users can adjust model parameters such as `temperature`, `top-k`, and `top-p` to control the randomness and diversity of the generated text.
 - **Audio Generation**: In addition to text responses, the application generates audio files corresponding to the translated text, allowing users to hear the responses in their chosen language.
@@ -27,6 +28,7 @@ A Flask-based web app designed for generating text responses in the style of dif
 - **gTTs**: Converting text to speech, allowing the application to generate audio files corresponding to the translated text.
 - **googletrans**: Translating text into different languages, enabling users to interact with the system in their preferred language.
 - **Gemini API**: Generating text responses in the style of different celebrities, leveraging NLP models to mimic their speech patterns.
+- **Pollinations API**: Generating images of the specified celebrity, allowing users to visualize the person they are interacting with.
 - **reportlab**: Generating PDF files containing the input details, model parameters and generated response, allowing users to save and share the content.
 - **qrcode**: Generating QR codes for the website link embedded in the PDF file, enabling users to easily access the application from their mobile devices.
 - **HTML/CSS/JavaScript**: Frontend components are implemented using HTML for structure, CSS for styling, and JavaScript for interactivity. Vanilla CSS & JS are used for simplicity, maximum compatibility & flexibility, and minimal dependencies.
@@ -38,18 +40,18 @@ A Flask-based web app designed for generating text responses in the style of dif
 
 1. Clone the repo
 
-   **Method 1: (Recommended)**
+   **Method 1: git clone in VSCode (Recommended)**
 
    - In VSCode, press `Ctrl+Shift+P`
    - Type `Git: Clone`
    - Paste the following URL: https://github.com/Hardvan/PolyPersona
 
-   **Method 2: (Alternative)**
+   **Method 2: git clone in terminal (Alternative)**
 
    Open a terminal and type the following commands:
 
    ```bash
-   git clone https://github.com/Hardvan/FaceCounter
+   git clone https://github.com/Hardvan/PolyPersona
    cd PolyPersona
    ```
 

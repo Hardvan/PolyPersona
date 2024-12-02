@@ -147,7 +147,7 @@ def celeb():
 
     # Generate image of celebrity
     image_path = pollinations.image_request_handler(
-        f"Create a detailed illustration of {celebrity}.", width=1024, height=1024, seed=42, model="flux", save_path="./static/images/pollinations/image-output.jpg")
+        f"Create a detailed illustration of {celebrity}.", width=512, height=512, seed=42, model="flux", save_path="./static/images/pollinations/image-output.jpg")
 
     result = {
         "celeb": celebrity,
@@ -244,17 +244,19 @@ def generate_pdf():
     top_k = data.get("top_k")
     top_p = data.get("top_p")
     response = data.get("response")
+    image_path = data.get("image_path")
     print(f"""📥 Input: {celeb}
 🗣️  Say: {say_what}
 🔠 Language: {target_language}
 🌡️  Temperature: {temperature}
 🔝 Top-k: {top_k}
 🔝 Top-p: {top_p}
-📤 Response: {response}""")
+📤 Response: {response}
+🖼️ Image path: {image_path}""")
 
     # Generate the PDF
     pdf_url = pdf_handler.generate_pdf(celeb, say_what, target_language,
-                                       temperature, top_k, top_p, response)
+                                       temperature, top_k, top_p, response, image_path)
 
     result = {
         "pdf_url": pdf_url

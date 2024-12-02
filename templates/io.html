@@ -151,6 +151,7 @@
       <p hidden id="temp">{{ result.temperature }}</p>
       <p hidden id="top-k">{{ result.top_k }}</p>
       <p hidden id="top-p">{{ result.top_p }}</p>
+      <p hidden id="result-image-path">{{ result.image_path }}</p>
       <!-- Result Audio -->
       <h2 id="audio-header">Response Audio:</h2>
       <audio controls autoplay id="response-audio">
@@ -160,7 +161,7 @@
         />
         Your browser does not support the audio element.
       </audio>
-      <!-- Result Image saved in ./static/pollinations/image-output.jpg (result.image_path) -->
+      <!-- Result Image -->
       <h2 id="image-header">Response Image:</h2>
       <img
         src="{{ result.image_path }}"

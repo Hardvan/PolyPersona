@@ -275,6 +275,9 @@
         const top_p = document.getElementById("top-p").textContent;
         // Get the response text
         const response = document.getElementById("response-text").textContent;
+        // Get response image path
+        const image_path =
+          document.getElementById("result-image-path").textContent;
 
         // API call
         fetch("/generate_pdf", {
@@ -290,6 +293,7 @@
             top_k: top_k,
             top_p: top_p,
             response: response,
+            image_path: image_path,
           }),
         })
           .then((response) => response.json()) // Parse the JSON response

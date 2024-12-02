@@ -6,11 +6,13 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 def save_qr_code(url, path="./static/qr/qr.png"):
     """Generates a QR code by embedding the given url and saves it to the given path.
 
-    Args:
+    Args
+    ----
     - `url`: The URL to embed in the QR code.
     - `path`: The path to save the QR code.
 
-    Returns:
+    Returns
+    -------
     - str: The path to the saved QR code.
     """
 

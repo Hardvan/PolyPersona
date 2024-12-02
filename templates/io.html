@@ -160,6 +160,13 @@
         />
         Your browser does not support the audio element.
       </audio>
+      <!-- Result Image saved in ./static/pollinations/image-output.jpg (result.image_path) -->
+      <h2 id="image-header">Response Image:</h2>
+      <img
+        src="{{ result.image_path }}"
+        alt="Response Image"
+        id="response-image"
+      />
       <!-- Generate PDF Button -->
       <button id="generate-pdf-btn" onclick="generatePDF()">
         Generate PDF

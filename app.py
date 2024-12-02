@@ -5,6 +5,7 @@ import os
 # Custom modules
 import google_handlers
 import gemini
+import pollinations
 import pdf_handler
 
 
@@ -144,6 +145,10 @@ def celeb():
     audio_base64 = get_audio_base64(audio_path)
     os.remove(audio_path)  # audio file not needed anymore (we have base64)
 
+    # Generate image of celebrity
+    image_path = pollinations.image_request_handler(
+        f"Create a detailed illustration of {celebrity}.", width=1024, height=1024, seed=42, model="flux", save_path="./static/images/pollinations/image-output.jpg")
+
     result = {
         "celeb": celebrity,
         "say_what": say_what,
@@ -152,7 +157,8 @@ def celeb():
         "top_k": model_parameters["top_k"],
         "top_p": model_parameters["top_p"],
         "response": response_text,
-        "audio_base64": audio_base64
+        "audio_base64": audio_base64,
+        "image_path": image_path
     }
 
     print("✅ Result obtained in /celeb.")

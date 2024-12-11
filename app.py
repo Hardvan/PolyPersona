@@ -4,6 +4,8 @@ import os
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from dotenv import load_dotenv
+from bson.objectid import ObjectId
+from datetime import datetime
 
 
 # Custom modules
@@ -116,6 +118,23 @@ def get_audio_base64(audio_path):
     return audio_base64
 
 
+def recent_responses():
+    """
+    Fetch the 4 most recent responses from MongoDB.
+
+    Returns:
+    - List of 4 most recent response documents
+    """
+
+    recent_docs = list(mongo_collection.find().sort("created_at", -1).limit(4))
+
+    # Convert ObjectId to string for JSON serialization
+    for doc in recent_docs:
+        doc['_id'] = str(doc['_id'])
+
+    return recent_docs
+
+
 def render_index(**kwargs):
     """Renders the index page with the given keyword arguments.
 
@@ -132,7 +151,37 @@ def render_index(**kwargs):
                            LANG_MAP=google_handlers.LANG_MAP,
                            SAMPLE_CELEBS=SAMPLE_CELEBS,
                            FINE_TUNE_OPTIONS=FINE_TUNE_OPTIONS,
+                           recent_responses=recent_responses(),
                            **kwargs)
+
+
+def save_response_to_mongodb(result):
+    """
+    Save the generated response to MongoDB.
+
+    Parameters:
+    - result (dict): The dictionary containing response details
+
+    Returns:
+    - ObjectId of the inserted document
+    """
+    # Prepare the document to save
+    document = {
+        "celebrity": result["celeb"],
+        "topic": result["say_what"],
+        "language": result["target_language"],
+        "response": result["response"],
+        "model_parameters": {
+            "temperature": result["temperature"],
+            "top_k": result["top_k"],
+            "top_p": result["top_p"]
+        },
+        "image_path": result["image_path"],
+        "created_at": datetime.now()
+    }
+
+    # Insert the document and return its ID
+    return mongo_collection.insert_one(document).inserted_id
 
 
 # ? Routes
@@ -160,10 +209,12 @@ def celeb():
     temperature = request.form.get("temperature")
     top_k = request.form.get("top_k")
     top_p = request.form.get("top_p")
+    save_to_mongodb = request.form.get("save_to_mongodb") == "yes"
     print(
         f"📥 Input: {celebrity}\n🗣️  Say: {say_what}\n🔠 Language: {target_language}")
     print(
         f"⚙️  Model parameters\n🌡️  Temperature: {temperature}\n🔝 Top-k: {top_k}\n🔝 Top-p: {top_p}")
+    print(f"💾 Save to MongoDB: {save_to_mongodb}")
 
     # Check if all fields are filled
     if not celebrity or not say_what or not target_language:
@@ -204,6 +255,10 @@ def celeb():
         "audio_base64": audio_base64,
         "image_path": image_path
     }
+
+    if save_to_mongodb:
+        result["mongodb_id"] = str(save_response_to_mongodb(result))
+        print("✅ Saved the generated response to MongoDB.")
 
     print("✅ Result obtained in /celeb.")
     return render_index(result=result)

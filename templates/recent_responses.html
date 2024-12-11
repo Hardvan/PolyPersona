@@ -1,0 +1,29 @@
+<section class="recent-responses">
+  <h2>Recently Generated Responses</h2>
+  <div class="responses-grid">
+    {% for response in recent_responses %}
+    <div class="response-card">
+      <div class="response-header">
+        <h3>{{ response.celebrity }}</h3>
+        <p class="topic">Topic: {{ response.topic }}</p>
+        <p class="language">Language: {{ response.language }}</p>
+      </div>
+      <div class="response-body">
+        <p>
+          {{ response.response }}
+        </p>
+      </div>
+      <div class="response-footer">
+        <p class="timestamp">
+          {{ response.created_at.strftime('%Y-%m-%d %H:%M') }}
+        </p>
+        <div class="model-params">
+          <span>T: {{ response.model_parameters.temperature }}</span>
+          <span>K: {{ response.model_parameters.top_k }}</span>
+          <span>P: {{ response.model_parameters.top_p }}</span>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

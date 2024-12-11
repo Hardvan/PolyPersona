@@ -365,5 +365,23 @@ def generate_pdf():
     return jsonify(result)
 
 
+@app.route("/delete_all_responses", methods=["POST"])
+def delete_all_responses():
+    """
+    Delete all the responses saved in the MongoDB collection.
+
+    Returns:
+    - Renders the index page with a success message.
+    """
+
+    print("=== In /delete_all_responses ===")
+
+    # Delete all documents from the collection
+    mongo_collection.delete_many({})
+    print("✅ Deleted all responses from MongoDB.")
+
+    return render_index(success="All responses have been deleted.")
+
+
 if __name__ == "__main__":
     app.run(debug=True)

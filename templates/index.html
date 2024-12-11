@@ -305,6 +305,18 @@
             window.open(data.pdf_url, "_blank");
           });
       }
+
+      function deleteAllResponses() {
+        // API call
+        fetch("/delete_all_responses", {
+          method: "POST",
+        })
+          .then((response) => response.json()) // Parse the JSON response
+          .then((data) => {
+            // Reload the page
+            location.reload();
+          });
+      }
     </script>
   </body>
 </html>

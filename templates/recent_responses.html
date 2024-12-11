@@ -9,9 +9,7 @@
         <p class="language">Language: {{ response.language }}</p>
       </div>
       <div class="response-body">
-        <p>
-          {{ response.response }}
-        </p>
+        <p>{{ response.response }}</p>
       </div>
       <div class="response-footer">
         <p class="timestamp">
@@ -26,4 +24,9 @@
     </div>
     {% endfor %}
   </div>
+
+  <!-- Delete all responses button -->
+  <button id="delete-all-responses" onclick="deleteAllResponses()">
+    Delete All Responses
+  </button>
 </section>

@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 import base64
 import os
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+from dotenv import load_dotenv
+
 
 # Custom modules
 import google_handlers
@@ -9,7 +13,47 @@ import pollinations
 import pdf_handler
 
 
+load_dotenv()
+
+
 app = Flask(__name__)
+
+
+# * MongoDB Setup
+mongo_db = None
+mongo_collection = None
+mongodb_uri = os.getenv("MONGODB_URI")
+client = MongoClient(mongodb_uri, server_api=ServerApi('1'))
+mongo_db = client['PolyPersona_DB']
+mongo_collection = mongo_db['generated_responses']
+
+
+# Send a ping to confirm a successful connection to MongoDB
+TEST_CONNECTION = True
+if TEST_CONNECTION:
+    print("=== Testing MongoDB Connection ===")
+
+    try:
+        client.admin.command('ping')
+        print("✅ Pinged your deployment. You successfully connected to MongoDB!")
+    except Exception as e:
+        print(e)
+
+    # Add a sample document in the collection (don't add if already exists)
+    name = 'John Doe'
+    if mongo_collection.count_documents({'name': name}) == 0:
+        mongo_collection.insert_one({'name': name})
+        print("✅ Added a sample document in the collection.")
+
+    # Retrieve the sample document added
+    result = mongo_collection.find_one({'name': name})
+    print(f"✅ Retrieved the sample document: {result}")
+
+    # Delete the sample document added
+    mongo_collection.delete_one({'name': name})
+    print("✅ Deleted the sample document.")
+
+    print("=== MongoDB Connection Test Completed ===")
 
 
 # ? Constants

@@ -28,8 +28,23 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     pdf = canvas.Canvas(pdf_path)
 
     # Set font and title
-    pdf.setFont("Helvetica", size=20)
+    pdf.setFont("Helvetica-Bold", size=20)
     pdf.drawString(30, 750, "Celebrity Quote Generation")
+
+    # Add website QR code to the top right corner
+    qr_path = "./static/qr/qr.png"
+
+    # Open the QR code image and get its dimensions
+    with Image.open(qr_path) as qr_img:
+        qr_width, qr_height = qr_img.size
+
+    # Position the QR code in the top right corner
+    # Using very small size (1/4 of original)
+    pdf.drawInlineImage(qr_path,
+                        x=500,   # Far right side of the page
+                        y=760,   # Near the top of the page
+                        width=qr_width/6,     # Scaled down to 25%
+                        height=qr_height/6)   # Scaled down to 25%
 
     # Add prompt details
     pdf.setFont("Helvetica", size=12)
@@ -46,10 +61,7 @@ def generate_pdf(celeb, say_what, target_language, temperature, top_k, top_p, re
     y_pos -= 20
     pdf.drawString(30, y_pos, f"Top-p: {top_p}")
 
-    # Add the qr code image to the PDF
-    qr_path = qr_handler.save_qr_code(
-        "https://polypersona.onrender.com/", "./static/qr/qr.png")
-    # Fetch the width and height of the QR code image dynamically
+    # Add the main image to the PDF
     with Image.open(image_path) as img:
         width, height = img.size
     pdf.drawInlineImage(image_path, 400, 580, width=width/3, height=height/3)

@@ -4,10 +4,13 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+# Call ListModels to get the list of models
+# all_models = genai.list_models()
+# print(f"All Google AI models: {list(all_models)}")
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 
 def get_response(prompt, generation_config=None):

@@ -142,6 +142,7 @@ def fine_tune(text, fine_tune, original_lang):
 Input text:
 {text}
 """
+
     print(f"⌨️  Prompt:\n{prompt}")
 
     # Return response from gemini model

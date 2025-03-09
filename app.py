@@ -165,6 +165,7 @@ def save_response_to_mongodb(result):
     Returns:
     - ObjectId of the inserted document
     """
+
     # Prepare the document to save
     document = {
         "celebrity": result["celeb"],

@@ -97,7 +97,7 @@ def handler(celebrity, say_what, model_parameters, target_language, audio_path):
     """
 
     # Structure the prompt
-    prompt = f"""You are working on a celebrity mimicking website. You need to generate text that very closely resembles the style, thought process, and humor of a celebrity. The text should be funny, engaging, deep, and thought-provoking. The response text should be plain text and keep it under 200 words.
+    prompt = f"""You are working on a celebrity mimicking website. You need to generate text that very closely resembles the style, thought process, and humor of a celebrity. The text should be funny, engaging, deep, and thought-provoking. The response text should be plain text and keep it under 200 words. Make sure to not use any obscene language or hate speech.
 
 Celebrity: {celebrity}
 I want them to say: {say_what}

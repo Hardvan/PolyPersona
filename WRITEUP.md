@@ -1,5 +1,9 @@
 # PolyPersona: An AI Powered Personality Emulation Framework with Multi-Language Support
 
+## Problem Statement
+
+With the increasing demand for interactive and personalized digital experiences, there is a lack of AI systems that can effectively emulate unique personalities with engaging dialogue styles. Traditional chatbot frameworks struggle to replicate distinct speech patterns, humor, and thought processes. Moreover, multilingual support and seamless integration of text-to-speech systems are often missing, limiting accessibility. PolyPersona addresses these gaps by offering a versatile framework that delivers customized, interactive experiences in various languages.
+
 ## Introduction
 
 PolyPersona is a full-stack web application designed to generate text responses in the style of various celebrities from past, present, or even fictional characters. Built using Flask, this platform leverages advanced natural language processing (NLP) models to emulate distinct speech patterns, humor, and thought processes. The project integrates Google's gTTS, googletrans libraries, and the Gemini API to provide multilingual support, delivering personalized text, audio, and visual content.
